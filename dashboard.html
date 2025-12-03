@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoachApp - Dashboard</title>
+    <link rel="stylesheet" href="css/styles_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <input type="checkbox" id="menu-toggle">
+    <header class="top-header">
+        <div class="header-left">
+            <label for="menu-toggle" class="hamburger-icon">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <div class="brand">
+                <img src="/Users/heinzovi/Desktop/ŠKOLA/WWW/CoachApp/images/logo.png" alt="Logo" class="nav-logo">
+                <h1>CoachApp</h1>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <span>Trenér Novák</span>
+                <i class="fa-solid fa-circle-user"></i>
+            </div>
+        </div>
+    </header>
+    <nav class="slide-menu">
+        <ul class="menu-list">
+            <li><a href="#" class="active"><i class="fa-solid fa-house"></i> Přehled</a></li>
+            <li><a href="#"><i class="fa-solid fa-users"></i> Můj Tým</a></li>
+            <li><a href="#"><i class="fa-solid fa-calendar-check"></i> Plán tréninků</a></li>
+            <li><a href="#"><i class="fa-solid fa-clipboard-list"></i> Docházka</a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiky</a></li>
+            <li class="separator"></li> 
+            <li><a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Odhlásit se</a></li>
+        </ul>
+    </nav>
+    <label for="menu-toggle" class="menu-overlay"></label>
+    <main class="dashboard-content">
+        <div class="welcome-banner">
+            <h2>Nástěnka</h2>
+            <p>Dnešní datum: 25. 11. 2025</p>
+        </div>
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Nejbližší trénink</h3>
+                    <i class="fa-solid fa-stopwatch icon-bg"></i>
+                </div>
+                <p class="big-text">Dnes 16:30</p>
+                <p class="sub-text">Hřiště B (Umělá tráva)</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Přítomnost</h3>
+                    <i class="fa-solid fa-users icon-bg"></i>
+                </div>
+                <p class="big-text">18 / 22</p>
+                <p class="sub-text">Hráčů potvrzeno</p>
+            </div>
+             <div class="card warning">
+                <div class="card-header">
+                    <h3>Zranění</h3>
+                    <i class="fa-solid fa-kit-medical icon-bg"></i>
+                </div>
+                <ul class="simple-list">
+                    <li>P. Černý (Kotník)</li>
+                    <li>T. Kovář (Sval)</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
