@@ -16,8 +16,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     height: 70px;
+    box-sizing: border-box;
     background: linear-gradient(135deg, #002855 0%, #000000 100%);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
@@ -55,11 +56,14 @@
 }
 
 .nav-logo {
-    height: 40px;
     width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 50%;
-    border: 2px solid #FFD700;
-    background: white; 
+    object-fit: cover; 
+    background-color: white; 
+    border: 2px solid #FFD700; 
 }
 
 .brand h1 {
