@@ -21,17 +21,21 @@
         </div>
         <div class="header-right">
             <div class="user-info">
-                <span>Trenér Novák</span>
+                <span>Jan Heinz</span>
                 <i class="fa-solid fa-circle-user"></i>
+                <a href="index.html" class="logout-btn" title="Odhlásit se">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
             </div>
         </div>
     </header>
     <nav class="slide-menu">
         <ul class="menu-list">
-            <li><a href="#" class="active"><i class="fa-solid fa-house"></i> Přehled</a></li>
+            <li><a href="#" class="active"><i class="fa-solid fa-table-columns"></i> Nástěnka</a></li>
             <li><a href="#"><i class="fa-solid fa-users"></i> Můj Tým</a></li>
-            <li><a href="#"><i class="fa-solid fa-calendar-check"></i> Plán tréninků</a></li>
-            <li><a href="#"><i class="fa-solid fa-clipboard-list"></i> Docházka</a></li>
+            <li><a href="#"><i class="fa-solid fa-stopwatch"></i> Tréninky</a></li>
+            <li><a href="#"><i class="fa-solid fa-futbol"></i> Zápasy</a></li>
+            <li><a href="#"><i class="fa-solid fa-user-plus"></i> Nový člen</a></li>
             <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiky</a></li>
             <li class="separator"></li> 
             <li><a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Odhlásit se</a></li>
@@ -41,36 +45,71 @@
     <main class="dashboard-content">
         <div class="welcome-banner">
             <h2>Nástěnka</h2>
-            <p>Dnešní datum: 25. 11. 2025</p>
+            <p>Dnešní datum: 12. 12. 2025</p>
         </div>
         <div class="dashboard-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Nejbližší trénink</h3>
-                    <i class="fa-solid fa-stopwatch icon-bg"></i>
+            <div class="card team-card">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-users"></i>
                 </div>
-                <p class="big-text">Dnes 16:30</p>
-                <p class="sub-text">Hřiště B (Umělá tráva)</p>
+                <h3>Můj Tým</h3>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3>Přítomnost</h3>
-                    <i class="fa-solid fa-users icon-bg"></i>
+            <div class="card team-card">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-stopwatch"></i>
                 </div>
-                <p class="big-text">18 / 22</p>
-                <p class="sub-text">Hráčů potvrzeno</p>
+                <h3>Tréninky</h3>
             </div>
-             <div class="card warning">
-                <div class="card-header">
-                    <h3>Zranění</h3>
-                    <i class="fa-solid fa-kit-medical icon-bg"></i>
+            <div class="card injury-card">
+                <div class="default-view">
+                    <div class="card-header-small">
+                        <i class="fa-solid fa-user-injured"></i>
+                        <h3>Zranění</h3>
+                    </div>
+                    <div class="big-count">10</div>
+                    <p class="status-text">Hráči mimo hru</p>
                 </div>
-                <ul class="simple-list">
-                    <li>P. Černý (Kotník)</li>
-                    <li>T. Kovář (Sval)</li>
-                </ul>
+                <div class="hover-view">
+                    <h4>Seznam marodů</h4>
+                    <ul class="injury-list">
+                        <li><strong>P. Černý</strong> <span class="reason">Kotník</span></li>
+                        <li><strong>T. Kovář</strong> <span class="reason">Sval</span></li>
+                        <li><strong>J. Novák</strong> <span class="reason">Koleno</span></li>
+                        <li><strong>M. Svoboda</strong> <span class="reason">Chřipka</span></li>
+                        <li><strong>D. Kučera</strong> <span class="reason">Tříslo</span></li>
+                        <li><strong>L. Mareš</strong> <span class="reason">Záda</span></li>
+                        <li><strong>F. Veselý</strong> <span class="reason">Kotník</span></li>
+                        <li><strong>P. Horák</strong> <span class="reason">Otřes mozku</span></li>
+                        <li><strong>J. Malý</strong> <span class="reason">Hamstring</span></li>
+                        <li><strong>K. Říha</strong> <span class="reason">Viróza</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card team-card">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h3>Statistiky</h3>
+            </div>
+            <div class="card team-card">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-futbol"></i>
+                </div>
+                <h3>Zápasy</h3>
+            </div>
+            <div class="card team-card">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h3>Nový člen</h3>
             </div>
         </div>
     </main>
+    <footer class="main-footer">
+        <p class="copyright">&copy; 2025 CoachApp </p>
+        <p class="author">
+            Design a kód: <span class="my-name">Sandra Heinzová</span>
+        </p>
+    </footer>
 </body>
 </html>
