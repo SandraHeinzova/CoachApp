@@ -445,3 +445,63 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+
+/* =========================================
+   MEDIA QUERIES
+   2 breakpointy
+   ========================================= */
+
+/* 1. BREAKPOINT: TABLETS */
+@media (max-width: 768px) {
+    
+    .dashboard-content {
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        gap: 15px; 
+    }
+
+    .team-card h3 {
+        font-size: 18px;
+    }
+
+    .hamburger-icon {
+        font-size: 28px; 
+    }
+}
+
+
+/* 2. BREAKPOINT: MOBILE PHONES */
+@media (max-width: 480px) {
+
+
+    .top-header {
+        height: 60px;
+        padding: 0 15px;
+    }
+
+    .dashboard-body {
+        padding-top: 60px; 
+    }
+
+    .header-right .user-info span {
+        display: none; 
+    }
+    
+    .brand h1 {
+        font-size: 18px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    .slide-menu {
+        width: 80%;
+        max-width: 300px;
+        top: 60px; 
+        height: calc(100vh - 60px);
+    }
+
+}
