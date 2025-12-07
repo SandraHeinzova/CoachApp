@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoachApp - Nový člen</title>
+    <link rel="stylesheet" href="css/styles_new_member.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <input type="checkbox" id="menu-toggle">
+
+    <header class="top-header">
+        <div class="header-left">
+            <label for="menu-toggle" class="hamburger-icon">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <div class="brand">
+                <img src="/Users/heinzovi/Desktop/ŠKOLA/WWW/CoachApp/images/logo.png" alt="Logo" class="nav-logo">
+                <h1>CoachApp</h1>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <span>Jan Heinz</span>
+                <i class="fa-solid fa-circle-user"></i>
+                <a href="index.html" class="logout-btn" title="Odhlásit se">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="slide-menu">
+        <ul class="menu-list">
+            <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Nástěnka</a></li>
+            <li><a href="#"><i class="fa-solid fa-users"></i> Můj Tým</a></li>
+            <li><a href="#"><i class="fa-solid fa-stopwatch"></i> Tréninky</a></li>
+            <li><a href="#"><i class="fa-solid fa-futbol"></i> Zápasy</a></li>
+            <li><a href="new_member.html" class="active"><i class="fa-solid fa-user-plus"></i> Nový člen</a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiky</a></li>
+            <li class="separator"></li> 
+            <li><a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Odhlásit se</a></li>
+        </ul>
+    </nav>
+    <label for="menu-toggle" class="menu-overlay"></label>
+
+    <main class="dashboard-content">
+        <div class="welcome-banner">
+            <h2>Nový člen týmu</h2>
+        </div>
+
+        <div class="card form-card">
+            <form action="#">
+                
+                <h3 class="section-title">Základní údaje</h3>
+                
+                <div class="form-grid">
+                    
+                    <div class="form-group">
+                        <label>Funkce v týmu</label>
+                        <select id="role-select" required>
+                            <option value="" disabled selected>Vyberte funkci...</option>
+                            <option value="Hráč">Hráč</option> 
+                            <option value="Trenér">Trenér</option>
+                            <option value="Asistent trenéra">Asistent trenéra</option>
+                            <option value="Lékař">Lékař</option>
+                            <option value="Masér">Masér</option>
+                            <option value="Fyzioterapeut">Fyzioterapeut</option>
+                            <option value="Kondiční trenér">Kondiční trenér</option>
+                            <option value="Kustod">Kustod</option>
+                            <option value="Videotrenér">Videotrenér</option>
+                            <option value="Psycholog">Psycholog</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jméno</label>
+                        <input type="text" placeholder="Jan" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Příjmení</label>
+                        <input type="text" placeholder="Novák" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Datum narození</label>
+                        <input type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobil</label>
+                        <input type="tel" placeholder="+420 777 123 456">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="jan.novak@email.cz">
+                    </div>
+                </div>
+
+                <div id="player-parameters" style="display: none;">
+                    
+                    <hr class="form-divider">
+                    <h3 class="section-title">Parametry hráče</h3>
+                    
+                    <div class="form-grid-small">
+                        <div class="form-group">
+                            <label>FAČR ID</label>
+                            <input type="text" placeholder="12345678">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Výška (cm)</label>
+                            <input type="number" placeholder="185">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Váha (kg)</label>
+                            <input type="number" placeholder="80">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Noha</label>
+                            <select>
+                                <option value="Pravá">Pravá</option>
+                                <option value="Levá">Levá</option>
+                                <option value="Obě">Obě</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-footer-split">
+                    
+                    <div class="form-group city-input">
+                        <label>Město</label>
+                        <input type="text" placeholder="Pardubice">
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fa-solid fa-plus"></i> PŘIDAT ČLENA
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p class="copyright">&copy; 2025 CoachApp</p>
+        <p class="author">Design a kód: <span class="my-name">Sandra Heinzová</span></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role-select');
+            const playerParams = document.getElementById('player-parameters');
+            function checkRole() {
+                if (roleSelect.value === 'Hráč') {
+                    playerParams.style.display = 'block';
+                } else {
+                    playerParams.style.display = 'none';
+                }
+            }
+            roleSelect.addEventListener('change', checkRole);
+            checkRole();
+        });
+    </script>
+</body>
+</html>

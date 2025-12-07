@@ -1,0 +1,426 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.dashboard-body {
+    background: #f4f6f8; 
+    display: flex;       
+    flex-direction: column; 
+    min-height: 100vh;
+    padding-top: 70px;
+    color: #333; 
+}
+
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: linear-gradient(135deg, #002855 0%, #000000 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-bottom: 3px solid #FFD700;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.header-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+}
+
+.hamburger-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #FFD700;
+    transition: transform 0.2s;
+}
+
+.hamburger-icon:hover { 
+    transform: scale(1.1); 
+}
+
+.brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.brand h1 { 
+    font-size: 20px; 
+    margin: 0; 
+    color: white; 
+}
+
+.nav-logo {
+    width: 40px; 
+    height: 40px;
+    min-width: 40px; 
+    min-height: 40px;
+    border-radius: 50%;
+    object-fit: cover; 
+    background-color: white; 
+    border: 2px solid #FFD700; 
+}
+
+.header-right .user-info {
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.header-right .fa-circle-user {
+    font-size: 30px; 
+    color: #FFD700;
+}
+
+.logout-btn {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    margin-left: 15px;
+    padding-left: 15px;
+    display: flex; 
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.logout-btn:hover { color: #FFD700; }
+
+#menu-toggle { display: none; } 
+
+.slide-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 260px;
+    height: calc(100vh - 70px);
+    background: #fff; 
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+}
+
+#menu-toggle:checked ~ .slide-menu { 
+    transform: translateX(0); 
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 70px; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.5); 
+    z-index: 900; 
+    display: none;
+}
+
+#menu-toggle:checked ~ .menu-overlay { display: block; }
+
+.menu-list { 
+    list-style: none; 
+    padding: 20px 0; 
+}
+
+.menu-list li a {
+    display: flex; 
+    align-items: center;
+    padding: 15px 25px;
+    color: #444;
+    text-decoration: none;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+    gap: 15px; 
+    transition: all 0.2s;
+}
+
+.menu-list li a i { width: 25px; color: #888; }
+
+.menu-list li a:hover, .menu-list li a.active {
+    background-color: #f0f7ff;
+    color: #002855;
+    border-left-color: #FFD700;
+}
+
+.menu-list li a:hover i, .menu-list li a.active i { color: #002855; }
+
+.separator { 
+    height: 1px; 
+    background: #eee;
+    margin: 10px 20px; 
+}
+
+.logout { color: #d63031 !important; }
+.logout:hover { background-color: #fff0f0 !important; }
+
+.dashboard-content {
+    padding: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+}
+
+.welcome-banner {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+.welcome-banner h2 {
+    color: #002855; 
+    font-size: 28px; 
+}
+.welcome-banner p { color: #666; }
+
+.form-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 4px solid #002855;
+    width: 100%; 
+    max-width: 100%; 
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.section-title {
+    font-size: 14px; 
+    color: #888;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    margin-top: 25px; 
+    margin-bottom: 15px;
+    border-left: 3px solid #FFD700; 
+    padding-left: 10px;
+}
+
+.form-divider { 
+    border: 0; 
+    height: 1px; 
+    background: #eee; 
+    margin: 30px 0; 
+}
+
+.form-group { 
+    display: flex; 
+    flex-direction: column;
+    margin-bottom: 15px; 
+}
+
+.form-group label {
+    font-size: 13px; 
+    font-weight: 600; 
+    color: #444; 
+    margin-bottom: 8px;
+}
+
+.form-group input, .form-group select {
+    padding: 12px 15px;
+    border: 1px solid #ddd; 
+    border-radius: 8px;
+    font-size: 15px; 
+    color: #333; 
+    background: #f9f9f9;
+    outline: none; 
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #002855; 
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 40, 85, 0.1);
+}
+
+.form-grid {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; 
+}
+
+.form-grid-small { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px; 
+}
+
+#player-parameters {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+.form-footer-split {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee; 
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-end; 
+    gap: 20px;
+}
+
+.city-input {
+    flex: 1; 
+    max-width: 300px; 
+    margin-bottom: 0; 
+}
+
+.city-input input {
+    height: 50px;
+    padding: 0 15px; 
+    line-height: 50px; 
+}
+
+.btn-submit {
+    background-color: #FFD700; 
+    color: #002855;
+    border: none; 
+    padding: 0 40px; 
+    height: 50px; 
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    border-radius: 8px;
+    cursor: pointer; 
+    text-transform: uppercase;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #e6c200; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+
+.main-footer {
+    width: 100%; 
+    text-align: center; 
+    padding: 20px 0;
+    color: #888; 
+    font-size: 12px; 
+    margin-top: auto;
+}
+
+.my-name { 
+    color: #002855; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+
+/* =========================================
+   MEDIA QUERIES (Responzivita)
+   ========================================= */
+
+/* 1. TABLET (pod 900px) - zmenšení na 2 sloupce */
+@media (max-width: 900px) {
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .form-grid-small { grid-template-columns: 1fr 1fr; }
+}
+
+/* 2. MOBIL (pod 600px) - vše pod sebe */
+@media (max-width: 600px) {
+    .form-grid, .form-grid-small { grid-template-columns: 1fr; gap: 10px; }
+    .form-card { padding: 20px; }
+    
+    /* Úprava hlavičky */
+    .header-right .user-info span { display: none; }
+    
+    /* Úprava spodní patičky formuláře */
+    .form-footer-split {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .city-input {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .btn-submit { width: 100%; }
+}
+
+/* =========================================
+   MEDIA QUERIES
+   2 breakpointy
+   ========================================= */
+
+/* 1. BREAKPOINT: TABLETS */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-grid-small {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-card {
+        padding: 30px;
+    }
+}
+
+/* 2. BREAKPOINT: MOBILE PHONES */
+@media (max-width: 480px) {
+    .form-grid, 
+    .form-grid-small {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-card {
+        padding: 20px; 
+    }
+
+    .header-right .user-info span {
+        display: none;
+    }
+    
+    .form-footer-split {
+        flex-direction: column; 
+        align-items: stretch;  
+        gap: 15px;
+    }
+    
+    .city-input {
+        max-width: 100%; 
+        margin-right: 0;
+    }
+    
+    .btn-submit {
+        width: 100%; 
+    }
+    
+    .slide-menu {
+        width: 85%;
+        max-width: 300px;
+    }
+}
