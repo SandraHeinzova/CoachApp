@@ -90,12 +90,7 @@
     font-weight: 600;
 }
 
-.header-right .user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
-    font-weight: 600;
-}
+
 
 .header-right .fa-circle-user {
     font-size: 30px;
@@ -103,12 +98,13 @@
 }
 
 .logout-btn {
-    color: rgba(255, 255, 255, 0.6); 
-    font-size: 20px; 
-    margin-left: 15px; 
-    text-decoration: none;
-    display: flex;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    margin-left: 15px;
+    padding-left: 15px;
+    display: flex; 
     align-items: center;
+    text-decoration: none;
     transition: color 0.3s;
 }
 
@@ -398,6 +394,16 @@
 .team-card:hover .icon-circle {
     transform: scale(1.1); 
     background-color: #003da5; 
+}
+
+a.card {
+    text-decoration: none;
+    color: inherit;
+    display: flex; 
+}
+
+a.card h3 {
+    color: #333; 
 }
 
 .icon-circle {
