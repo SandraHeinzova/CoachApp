@@ -1,0 +1,440 @@
+/* =========================================
+   STYLY PRO TÝM (styles_team.css) - FINAL
+   ========================================= */
+
+/* --- ZÁKLADNÍ STRUKTURA --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.dashboard-body {
+    background: #f4f6f8; 
+    display: flex;       
+    flex-direction: column; 
+    min-height: 100vh;
+    padding-top: 70px;
+    color: #333; 
+}
+
+/* --- HEADER & MENU --- */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: linear-gradient(135deg, #002855 0%, #000000 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-bottom: 3px solid #FFD700;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.header-left, .brand, .header-right .user-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.header-left { gap: 20px; }
+
+.hamburger-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #FFD700;
+    transition: transform 0.2s;
+}
+.hamburger-icon:hover { transform: scale(1.1); }
+
+.brand h1 { font-size: 20px; margin: 0; color: white; }
+
+.nav-logo {
+    width: 40px; height: 40px; min-width: 40px; min-height: 40px;
+    border-radius: 50%; object-fit: cover; 
+    background-color: white; border: 2px solid #FFD700; 
+}
+
+.header-right .fa-circle-user { font-size: 30px; color: #FFD700; }
+
+.logout-btn {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    margin-left: 15px; padding-left: 15px;
+    display: flex; align-items: center;
+    text-decoration: none; transition: color 0.3s;
+}
+.logout-btn:hover { color: #FFD700; }
+
+#menu-toggle { display: none; } 
+
+.slide-menu {
+    position: fixed; top: 70px; left: 0;
+    width: 260px; height: calc(100vh - 70px);
+    background: #fff; 
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+}
+#menu-toggle:checked ~ .slide-menu { transform: translateX(0); }
+
+.menu-overlay {
+    position: fixed; top: 70px; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); 
+    z-index: 900; display: none;
+}
+#menu-toggle:checked ~ .menu-overlay { display: block; }
+
+.menu-list { list-style: none; padding: 20px 0; }
+.menu-list li a {
+    display: flex; align-items: center; padding: 15px 25px;
+    color: #444; text-decoration: none; font-weight: 500;
+    border-left: 4px solid transparent; gap: 15px; transition: all 0.2s;
+}
+.menu-list li a i { width: 25px; color: #888; }
+.menu-list li a:hover, .menu-list li a.active {
+    background-color: #f0f7ff; color: #002855; border-left-color: #FFD700;
+}
+.menu-list li a:hover i, .menu-list li a.active i { color: #002855; }
+.separator { height: 1px; background: #eee; margin: 10px 20px; }
+.logout { color: #d63031 !important; }
+.logout:hover { background-color: #fff0f0 !important; }
+
+
+/* --- HLAVNÍ OBSAH --- */
+.dashboard-content {
+    padding: 30px; width: 100%; max-width: 1000px;
+    margin: 0 auto; flex: 1;
+}
+
+.welcome-banner {
+    margin-bottom: 30px; border-bottom: 1px solid #ddd; padding-bottom: 15px;
+}
+.welcome-banner h2 { color: #002855; font-size: 28px; }
+
+.list-category {
+    color: #888; text-transform: uppercase; font-size: 14px;
+    margin-bottom: 15px; letter-spacing: 1px;
+}
+.mt-50 { margin-top: 50px; }
+
+
+/* --- KARTA HRÁČE (ZAVŘENÁ) --- */
+details.member-item {
+    background: white; border-radius: 8px; margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); overflow: hidden;
+    border-left: 4px solid #002855; transition: box-shadow 0.3s;
+}
+
+summary.member-header {
+    display: flex; align-items: center; padding: 15px 20px;
+    cursor: pointer; background: white; outline: none; list-style: none;
+}
+summary.member-header:hover { background-color: #f9f9f9; }
+summary.member-header::-webkit-details-marker { display: none; } /* Skrytí šipky v Chrome */
+
+.member-number {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 2px solid #002855; color: #002855;
+    display: flex; justify-content: center; align-items: center;
+    font-weight: bold; font-size: 16px; margin-right: 15px;
+}
+
+.staff-header .staff-icon { border-color: #888; color: #888; }
+
+.member-info {
+    flex: 1; display: flex; flex-direction: row; align-items: center; gap: 15px;
+}
+.member-info .name { font-weight: bold; font-size: 16px; color: #333; }
+.member-info .position { font-size: 13px; color: #888; text-transform: uppercase; }
+
+.arrow { color: #ccc; transition: transform 0.3s; }
+
+
+/* --- KARTA HRÁČE (OTEVŘENÁ) --- */
+details[open].member-item { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+details[open] summary .arrow { transform: rotate(180deg); color: #002855; }
+details[open] .position { display: none; } /* Skryje pozici v hlavičce */
+details[open] .member-number { display: none; } /* Skryje iniciály */
+
+details[open] summary.member-header {
+    background-color: #fdfdfd; 
+    border-bottom: none;       
+    padding-bottom: 5px;       
+    padding-left: 30px;       
+}
+
+details[open] .name {
+    font-size: 24px; color: #002855; margin-left: 0;    
+}
+
+details[open] .member-detail {
+    border-top: none;     
+    padding-top: 10px;    
+    padding-left: 30px;   
+}
+
+
+/* --- VNITŘEK DETAILU --- */
+.member-detail {
+    background-color: #fdfdfd; border-top: 1px solid #eee; padding: 30px;
+}
+.detail-divider {
+    border: 0; height: 1px; background: #e0e0e0; margin: 25px 0;
+}
+
+/* 1. Profil (Grid) */
+.profile-section {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr; /* Levý, Střední, Pravý */
+    gap: 10px; align-items: start;
+}
+
+.profile-col-left {
+    display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+}
+.player-name-large {
+    font-size: 18px; color: #002855; margin-bottom: 10px; font-weight: 700;
+}
+.player-photo-large {
+    width: 120px; height: 120px;
+    background: #e6e6e6; border-radius: 12px;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 50px; color: white; margin-bottom: 10px; margin-left: 20px;
+    border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.facr-id {
+    font-size: 12px; color: #888; background: #eee;
+    padding: 3px 8px; border-radius: 4px; margin-left: 15px;
+}
+
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; 
+    column-gap: 30px; row-gap: 15px;
+    padding: 20px; border-radius: 12px;
+}
+.info-item { display: flex; flex-direction: column; }
+.info-item .label { font-size: 11px; text-transform: uppercase; color: #888; margin-bottom: 2px; }
+.info-item .value { font-size: 15px; font-weight: 600; color: #333; }
+
+.profile-col-right {
+    display: flex; flex-direction: column; gap: 10px; justify-content: center; height: 100%; 
+}
+.btn-profile {
+    padding: 12px; background: white; border: 1px solid #002855;
+    color: #002855; border-radius: 6px; font-weight: 600; cursor: pointer;
+    text-align: left; display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+}
+.btn-profile:hover { background: #f0f7ff; }
+
+
+/* 2. Statistiky */
+.main-stats-row {
+    display: flex; justify-content: space-around; margin-bottom: 10px;
+}
+.stat-big-box { text-align: center; }
+.stat-title { display: block; font-size: 14px; color: #888; margin-bottom: 5px; }
+.stat-num { display: block; font-size: 36px; font-weight: 800; color: #333; line-height: 1; }
+.stat-num.highlight { color: #002855; }
+.stat-detail { font-size: 13px; color: #aaa; }
+
+
+/* 3. Sezóny a Zranění */
+.season-injury-container {
+    display: grid; grid-template-columns: 2fr 1fr; 
+    gap: 40px; margin-top: 10px; align-items: start;
+}
+.seasons-wrapper { display: flex; flex-direction: column; gap: 15px; }
+.history-title {
+    font-size: 12px; color: #aaa; text-transform: uppercase;
+    margin-bottom: 5px; margin-top: 15px;
+}
+
+details.season-dropdown { background: transparent; border: none; width: 100%; }
+details.season-dropdown summary {
+    padding: 10px 0; cursor: pointer; background: transparent; list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: bold; color: #002855; border-bottom: 1px solid #eee; transition: border-color 0.3s;
+}
+details.season-dropdown summary:hover { border-bottom-color: #002855; }
+details.season-dropdown summary::-webkit-details-marker { display: none; }
+
+.text-muted { color: #666; font-weight: normal; }
+.season-preview {
+    font-size: 13px; color: #888; font-weight: normal;
+    margin-left: auto; margin-right: 15px;
+}
+.season-content {
+    padding: 15px 0; display: flex; justify-content: space-between;
+    background: #fdfdfd; border-bottom: 1px solid #eee; animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.season-stat-item { text-align: center; color: #444; font-size: 13px; flex: 1; }
+.season-stat-item i { font-size: 18px; margin-bottom: 5px; display: block; color: #FFD700; }
+.season-stat-item strong { display: block; font-size: 15px; color: #002855; }
+
+/* Box Zranění */
+.injury-box {
+    border: 1px solid #eee; border-radius: 8px; padding: 20px;
+    text-align: center; background: #fdfdfd;
+    display: flex; flex-direction: column; justify-content: center; gap: 10px;
+    top: 90px;
+}
+.injury-header { font-size: 11px; font-weight: bold; color: #aaa; text-transform: uppercase; }
+.injury-status.ok { color: #27ae60; font-weight: 800; font-size: 16px; }
+.injury-status.not-ok { color: #830202; font-weight: 800; font-size: 16px; }
+.btn-history-injury {
+    background: none; border: none; text-decoration: underline; color: #888;
+    font-size: 11px; cursor: pointer;
+}
+.btn-history-injury:hover { color: #002855; }
+
+
+/* 4. Patička a Akce */
+.detail-footer-actions {
+    display: flex; justify-content: space-between; align-items: center;
+}
+.footer-right-group { display: flex; gap: 15px; }
+
+.btn-graph, .btn-deactivate {
+    background: white; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s;
+}
+.btn-graph { border: 2px solid #002855; color: #002855; padding: 10px 20px; }
+.btn-graph:hover { background: #002855; color: white; }
+
+.btn-edit-profile {
+    background: #FFD700; color: #002855; border: none; padding: 10px 25px;
+    border-radius: 8px; font-weight: bold; cursor: pointer;
+}
+.btn-deactivate {
+    border: 1px solid #d63031; color: #d63031; padding: 10px 20px;
+}
+.btn-deactivate:hover { background: #d63031; color: white; }
+
+
+/* --- TRENÉR (Vizitka) --- */
+.coach-license {
+    text-align: center; margin-top: 10px; background: #f0f7ff;
+    padding: 8px 15px; border-radius: 6px; border: 1px solid #dbeafe;
+}
+.license-label { display: block; font-size: 11px; color: #888; text-transform: uppercase; }
+.license-badge { display: block; font-size: 16px; font-weight: 800; color: #002855; }
+
+.contact-list {
+    margin-top: 35px; /* Upravené odsazení */
+    list-style: none; display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px;
+}
+.contact-list li {
+    display: flex; align-items: center; gap: 15px; border-bottom: none; padding-bottom: 0;
+}
+.icon-box {
+    width: 45px; height: 45px; background: white; border: 1px solid #eee;
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    color: #FFD700; font-size: 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+.contact-text { display: flex; flex-direction: column; }
+.contact-text .label { font-size: 12px; color: #aaa; margin-bottom: 2px; }
+.value-link {
+    font-size: 16px; font-weight: 600; color: #333; text-decoration: none; transition: color 0.2s;
+}
+.value-link:hover { color: #002855; text-decoration: underline; }
+.mt-20 { margin-top: 20px; }
+
+/* Footer Stránky */
+.main-footer {
+    width: 100%; text-align: center; padding: 20px 0;
+    color: #888; font-size: 12px; margin-top: auto;
+}
+.my-name { color: #002855; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+
+
+/* =========================================
+   MEDIA QUERIES (RESPONZIVITA)
+   ========================================= */
+
+/* 1. TABLET (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Profil pod sebe */
+    .profile-section {
+        grid-template-columns: 1fr; 
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .profile-col-left {
+        align-items: center; /* Fotka na střed */
+    }
+    .player-photo-large { margin-left: 0; }
+    .facr-id { margin-left: 0; }
+
+    /* Tlačítka vedle sebe */
+    .profile-col-right {
+        flex-direction: row; 
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .btn-profile { justify-content: center; }
+
+    /* Sezóny a zranění pod sebe */
+    .season-injury-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* 2. MOBIL (max-width: 480px) */
+@media (max-width: 480px) {
+    .dashboard-content { padding: 15px; }
+
+    /* Hlavička - schovat jméno */
+    .header-right .user-info span { display: none; }
+
+    /* Zmenšit odsazení v detailu */
+    details[open] summary.member-header { padding-left: 15px; }
+    details[open] .member-detail { padding-left: 15px; padding-right: 15px; }
+    .member-detail { padding: 15px; }
+
+    /* Statistiky pod sebe */
+    .main-stats-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Info grid na jeden sloupec */
+    .info-grid { grid-template-columns: 1fr; }
+
+    /* Statistiky v sezóně mohou být natěsno, povolíme zalamování */
+    .season-content { flex-wrap: wrap; gap: 10px; }
+
+    /* Patička akcí pod sebe */
+    .detail-footer-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .footer-right-group {
+        display: flex; flex-direction: column; width: 100%;
+    }
+    
+    .btn-profile, .btn-graph, .btn-edit-profile, .btn-deactivate {
+        width: 100%; justify-content: center;
+    }
+}

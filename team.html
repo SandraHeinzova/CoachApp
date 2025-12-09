@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoachApp - Můj Tým</title>
+    <link rel="stylesheet" href="css/styles_team.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <input type="checkbox" id="menu-toggle">
+    <header class="top-header">
+        <div class="header-left">
+            <label for="menu-toggle" class="hamburger-icon">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <div class="brand">
+                <img src="/Users/heinzovi/Desktop/ŠKOLA/WWW/CoachApp/images/logo.png" alt="Logo" class="nav-logo">
+                <h1>CoachApp</h1>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <span>Jan Heinz</span>
+                <i class="fa-solid fa-circle-user"></i>
+                <a href="index.html" class="logout-btn" title="Odhlásit se">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <nav class="slide-menu">
+        <ul class="menu-list">
+            <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Nástěnka</a></li>
+            <li><a href="team.html" class="active"><i class="fa-solid fa-users"></i> Můj Tým</a></li>
+            <li><a href="#"><i class="fa-solid fa-stopwatch"></i> Tréninky</a></li>
+            <li><a href="#"><i class="fa-solid fa-futbol"></i> Zápasy</a></li>
+            <li><a href="new_member.html"><i class="fa-solid fa-user-plus"></i> Nový člen</a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-line"></i> Statistiky</a></li>
+            <li class="separator"></li> 
+            <li><a href="index.html" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Odhlásit se</a></li>
+        </ul>
+    </nav>
+    <label for="menu-toggle" class="menu-overlay"></label>
+    <main class="dashboard-content">
+        <div class="welcome-banner">
+            <h2>Můj Tým</h2>
+        </div>
+        <h3 class="list-category">Hráči</h3>
+        <div class="team-list">
+            <details class="member-item" name="team-accordion">
+                <summary class="member-header">
+                    <div class="member-number">JB</div>
+                    <div class="member-info">
+                        <span class="name">Jakub Bodnár</span>
+                        <span class="position">Levý obránce</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </summary>
+                <div class="member-detail">
+                    <div class="profile-section">
+                        <div class="profile-col-left">
+                            <div class="player-photo-large">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span class="facr-id">FAČR ID: 10051212</span>
+                        </div>
+                        <div class="profile-col-center">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="label">Pozice</span>
+                                    <span class="value">Levý obránce</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Výška</span>
+                                    <span class="value">179 cm</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Věk</span>
+                                    <span class="value">15 let</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Váha</span>
+                                    <span class="value">85 kg</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Město</span>
+                                    <span class="value">Pardubice</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Noha</span>
+                                    <span class="value">Pravá</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-col-right">
+                            <button class="btn-profile"><i class="fa-solid fa-file-lines"></i> Charakteristika</button>
+                            <button class="btn-profile"><i class="fa-solid fa-people-roof"></i> Zák. zástupce</button>
+                            <button class="btn-profile"><i class="fa-solid fa-file-signature"></i> Kontakty</button>
+                        </div>
+                    </div>
+                    <hr class="detail-divider">
+                    <div class="main-stats-row">
+                        <div class="stat-big-box">
+                            <span class="stat-title">ÚČAST TJ</span>
+                            <span class="stat-num">76%</span>
+                            <span class="stat-detail">32/38 tr.</span>
+                        </div>
+                        <div class="stat-big-box">
+                            <span class="stat-title">MINUTÁŽ</span>
+                            <span class="stat-num">25%</span>
+                            <span class="stat-detail">80/360 min</span>
+                        </div>
+                        <div class="stat-big-box">
+                            <span class="stat-title">HODNOCENÍ</span>
+                            <span class="stat-num highlight">8,0</span>
+                        </div>
+                    </div>
+                    <div class="season-injury-container">
+                        <div class="seasons-wrapper">
+                            <h4 class="history-title">Historie sezón</h4>
+                            <details class="season-dropdown" open>
+                                <summary>
+                                    <span class="season-label">2024/2025</span>
+                                    <span class="season-preview">2 G | 1 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item">
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span><strong>450</strong> min</span>
+                                    </div>
+                                    <div class="season-stat-item">
+                                        <i class="fa-regular fa-futbol"></i>
+                                        <span><strong>2</strong> Góly</span>
+                                    </div>
+                                    <div class="season-stat-item">
+                                        <i class="fa-solid fa-shoe-prints"></i>
+                                        <span><strong>1</strong> Asist.</span>
+                                    </div>
+                                </div>
+                            </details>
+                            <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2023/2024</span>
+                                    <span class="season-preview">15 G | 8 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>350</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>15</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>8</strong> A</span></div>
+                                </div>
+                            </details>
+                            <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2022/2023</span>
+                                    <span class="season-preview">10 G | 5 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>854</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>10</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>5</strong> A</span></div>
+                                </div>
+                            </details>
+                            <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2021/2022</span>
+                                    <span class="season-preview">5 G | 2 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>233</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>5</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>2</strong> A</span></div>
+                                </div>
+                            </details>
+                             <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2020/2021</span>
+                                    <span class="season-preview">1 G | 0 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>200</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>1</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>0</strong> A</span></div>
+                                </div>
+                            </details>
+                        </div>
+                        <div class="injury-box">
+                            <div class="injury-header">
+                                <i class="fa-solid fa-user-doctor"></i> ZDRAVOTNÍ STAV
+                            </div>
+                            <div class="injury-status ok">Připraven</div>
+                            <button class="btn-history-injury">Zobrazit historii zranění</button>
+                        </div>
+                    </div>
+                    <hr class="detail-divider">
+                    <div class="detail-footer-actions">
+                        <button class="btn-graph"><i class="fa-solid fa-chart-area"></i> Graf hodnocení</button>
+                        <div class="footer-right-group">
+                            <button class="btn-edit-profile"><i class="fa-solid fa-pen"></i> Upravit profil</button>
+                            <button class="btn-deactivate"><i class="fa-solid fa-user-xmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </details>
+
+            <details class="member-item" name="team-accordion" open>
+                <summary class="member-header">
+                    <div class="member-number">DD</div>
+                    <div class="member-info">
+                        <span class="name">Daniel Dibelka</span>
+                        <span class="position">Hrotový útočník</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </summary>
+                <div class="member-detail">
+                    <div class="profile-section">                       
+                        <div class="profile-col-left">
+                            <div class="player-photo-large">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span class="facr-id">FAČR ID: 980512/1234</span>
+                        </div>
+
+                        <div class="profile-col-center">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="label">Pozice</span>
+                                    <span class="value">Hrotový útočník</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Výška</span>
+                                    <span class="value">189 cm</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Věk</span>
+                                    <span class="value">16 let</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Váha</span>
+                                    <span class="value">90 kg</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Město</span>
+                                    <span class="value">Chrudim</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Noha</span>
+                                    <span class="value">Pravá</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-col-right">
+                            <button class="btn-profile"><i class="fa-solid fa-file-lines"></i> Charakteristika</button>
+                            <button class="btn-profile"><i class="fa-solid fa-people-roof"></i> Zák. zástupce</button>
+                            <button class="btn-profile"><i class="fa-solid fa-file-signature"></i> Kontakty</button>
+                        </div>
+                    </div>
+                    <hr class="detail-divider">
+                    <div class="main-stats-row">
+                        <div class="stat-big-box">
+                            <span class="stat-title">ÚČAST TJ</span>
+                            <span class="stat-num">50%</span>
+                            <span class="stat-detail">19/38 tr.</span>
+                        </div>
+                        <div class="stat-big-box">
+                            <span class="stat-title">MINUTÁŽ</span>
+                            <span class="stat-num">52%</span>
+                            <span class="stat-detail">187/360 min</span>
+                        </div>
+                        <div class="stat-big-box">
+                            <span class="stat-title">HODNOCENÍ</span>
+                            <span class="stat-num highlight">6,5</span>
+                        </div>
+                    </div>
+                    <div class="season-injury-container">
+                        <div class="seasons-wrapper">
+                            <h4 class="history-title">Historie sezón</h4>
+                            <details class="season-dropdown" open>
+                                <summary>
+                                    <span class="season-label">2024/2025</span>
+                                    <span class="season-preview">2 G | 1 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item">
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span><strong>450</strong> min</span>
+                                    </div>
+                                    <div class="season-stat-item">
+                                        <i class="fa-regular fa-futbol"></i>
+                                        <span><strong>2</strong> Góly</span>
+                                    </div>
+                                    <div class="season-stat-item">
+                                        <i class="fa-solid fa-shoe-prints"></i>
+                                        <span><strong>1</strong> Asist.</span>
+                                    </div>
+                                </div>
+                            </details>
+                            <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2023/2024</span>
+                                    <span class="season-preview">15 G | 8 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>2100</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>15</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>8</strong> A</span></div>
+                                </div>
+                            </details>
+                            <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2022/2023</span>
+                                    <span class="season-preview">10 G | 5 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>1800</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>10</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>5</strong> A</span></div>
+                                </div>
+                            </details>
+                            <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2021/2022</span>
+                                    <span class="season-preview">5 G | 2 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>900</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>5</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>2</strong> A</span></div>
+                                </div>
+                            </details>
+
+                             <details class="season-dropdown">
+                                <summary>
+                                    <span class="season-label text-muted">2020/2021</span>
+                                    <span class="season-preview">1 G | 0 A</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </summary>
+                                <div class="season-content">
+                                    <div class="season-stat-item"><i class="fa-regular fa-clock"></i><span><strong>200</strong> min</span></div>
+                                    <div class="season-stat-item"><i class="fa-regular fa-futbol"></i><span><strong>1</strong> G</span></div>
+                                    <div class="season-stat-item"><i class="fa-solid fa-shoe-prints"></i><span><strong>0</strong> A</span></div>
+                                </div>
+                            </details>
+                        </div>
+                        <div class="injury-box">
+                            <div class="injury-header">
+                                <i class="fa-solid fa-user-doctor"></i> ZDRAVOTNÍ STAV
+                            </div>
+                            <div class="injury-status not-ok">Zraňen</div>
+                            <button class="btn-history-injury">Zobrazit historii zranění</button>
+                        </div>
+                    </div>
+                    <hr class="detail-divider">
+                    <div class="detail-footer-actions">
+                        <button class="btn-graph"><i class="fa-solid fa-chart-area"></i> Graf hodnocení</button>
+                        <div class="footer-right-group">
+                            <button class="btn-edit-profile"><i class="fa-solid fa-pen"></i> Upravit profil</button>
+                            <button class="btn-deactivate"><i class="fa-solid fa-user-xmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div> 
+
+        <h3 class="list-category mt-50">Realizační tým</h3>
+        
+        <div class="team-list">
+            <details class="member-item" name="staff-accordion">
+                <summary class="member-header staff-header">
+                    <div class="member-number staff-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="member-info">
+                        <span class="name">Jan Heinz</span>
+                        <span class="position">Hlavní trenér</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </summary>
+                <div class="member-detail">
+                    <div class="detail-grid">
+                        <div class="detail-left">
+                            <div class="coach-license">
+                                <span class="license-label">Licence</span>
+                                <span class="license-badge">UEFA A</span>
+                            </div>
+                        </div>
+                        <div class="detail-right">                            
+                            <ul class="contact-list">
+                                <li>
+                                    <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+                                    <div class="contact-text">
+                                        <a href="mailto:trener@mfkchrudim.cz" class="value-link">trener@mfkchrudim.cz</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                                    <div class="contact-text">
+                                        <a href="tel:+420777888999" class="value-link">+420 777 888 999</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="member-item" name="staff-accordion">
+                <summary class="member-header staff-header">
+                    <div class="member-number staff-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="member-info">
+                        <span class="name">Karel Popper</span>
+                        <span class="position">Asistent trenéra</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </summary>
+                <div class="member-detail">
+                    <div class="detail-grid">
+                        <div class="detail-left">
+                            <div class="coach-license">
+                                <span class="license-label">Licence</span>
+                                <span class="license-badge">UEFA C</span>
+                            </div>
+                        </div>
+                        <div class="detail-right">                            
+                            <ul class="contact-list">
+                                <li>
+                                    <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+                                    <div class="contact-text">
+                                        <a href="mailto:trener@mfkchrudim.cz" class="value-link">asistent@mfkchrudim.cz</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                                    <div class="contact-text">
+                                        <a href="tel:+420777888999" class="value-link">+420 777 999 333</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <p class="copyright">&copy; 2025 CoachApp</p>
+        <p class="author">Design a kód: <span class="my-name">Sandra Heinzová</span></p>
+    </footer>
+</body>
+</html>
