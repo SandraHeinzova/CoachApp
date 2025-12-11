@@ -325,10 +325,11 @@
     padding: 20px 0;
     color: #888; 
     font-size: 12px; 
+    line-height: 1.6; 
     margin-top: auto;
 }
 
-.my-name { 
+.page-autor-name { 
     color: #002855; 
     font-weight: bold; 
     text-transform: uppercase; 

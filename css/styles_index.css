@@ -22,7 +22,6 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* --- LOGIN CARD --- */
 .login-card {
     background-color: #1e1e1e;
     width: 480px; 
@@ -32,7 +31,6 @@ body {
     border-top: 4px solid #FFD700; 
 }
 
-/* --- LOGO --- */
 .logo-container {
     text-align: center;
     margin-bottom: 40px;
@@ -55,7 +53,6 @@ body {
     font-size: 14px;
 }
 
-/* --- INPUTS --- */
 .input-group {
     margin-bottom: 25px;
 }
@@ -98,7 +95,6 @@ body {
     font-size: 16px;
 }
 
-/* --- BUTTON --- */
 .btn-login {
     width: 100%;
     padding: 14px;
@@ -119,8 +115,9 @@ body {
     transform: translateY(-2px);
 }
 
-/* --- FOOTER --- */
 .main-footer {
+    padding: 20px 0;
+    margin-top: auto;
     position: absolute;
     bottom: 15px;
     width: 100%;
@@ -130,7 +127,7 @@ body {
     line-height: 1.6; 
 }
 
-.my-name {
+.page-autor-name {
     color: #FFD700; 
     font-weight: bold;
     text-transform: uppercase;
