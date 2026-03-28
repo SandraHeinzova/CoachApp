@@ -1,0 +1,13 @@
+services:
+  coach-db:
+    image: gvenzl/oracle-free:latest
+    container_name: coach-db
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=heslo123
+      - APP_USER=SANDRA
+      - APP_USER_PASSWORD=heslo123
+    volumes:
+      - ./init.sql:/container-entrypoint-initdb.d/init.sql
+    restart: always
