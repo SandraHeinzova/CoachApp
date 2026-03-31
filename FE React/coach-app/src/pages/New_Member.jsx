@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/styles_new_member.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Sidebar from '../components/Sidebar';
+
 
 function NewMember() {
-    const navigate = useNavigate();
 
     const [roles, setRoles] = useState([]);
     const [positions, setPositions] = useState([]);
@@ -82,53 +85,13 @@ function NewMember() {
         }
     };
 
-    const loggedUser = JSON.parse(localStorage.getItem('user'));
-
-    const handleLogout = (e) => {
-        localStorage.clear()
-        e.preventDefault();
-        navigate('/');
-    };
-
     document.title = "CoachApp - Nový člen";
 
     return (
         <div className="dashboard-body">
             <input type="checkbox" id="menu-toggle"/>
-
-            <header className="top-header">
-                <div className="header-left">
-                    <label htmlFor="menu-toggle" className="hamburger-icon">
-                        <i className="fa-solid fa-bars"></i>
-                    </label>
-                    <div className="brand">
-                        <img src="images/logo.png" alt="Logo" className="nav-logo"/>
-                        <h1>CoachApp</h1>
-                    </div>
-                </div>
-                <div className="header-right">
-                    <div className="user-info">
-                        <span>{loggedUser ? `${loggedUser.firstName} ${loggedUser.lastName}` : 'Host'}</span>
-                        <i className="fa-solid fa-circle-user"></i>
-                        <a onClick={handleLogout} className="logout-btn" title="Odhlásit" style={{ cursor: 'pointer' }}>
-                            <i className="fa-solid fa-right-from-bracket"></i>
-                        </a>
-                    </div>
-                </div>
-            </header>
-
-            <nav className="slide-menu">
-                <ul className="menu-list">
-                    <li><Link to="/dashboard"><i className="fa-solid fa-table-columns"></i> Nástěnka</Link></li>
-                    <li><Link to="/team"><i className="fa-solid fa-users"></i> Můj Tým</Link></li>
-                    <li><Link to="/"><i className="fa-solid fa-stopwatch"></i> Tréninky</Link></li>
-                    <li><Link to="/"><i className="fa-solid fa-futbol"></i> Zápasy</Link></li>
-                    <li><Link to="/new_member" className="active"><i className="fa-solid fa-user-plus"></i> Nový člen</Link></li>
-                    <li><Link to="/"><i className="fa-solid fa-chart-pie"></i> Statistiky</Link></li>
-                    <li className="separator"></li>
-                    <li><a onClick={handleLogout} className="logout" style={{ cursor: 'pointer' }}><i className="fa-solid fa-right-from-bracket"></i> Odhlásit se</a></li>
-                </ul>
-            </nav>
+            <Header />
+            <Sidebar/>
             <label htmlFor="menu-toggle" className="menu-overlay"></label>
 
             <main className="dashboard-content">
@@ -233,10 +196,7 @@ function NewMember() {
                 </div>
             </main>
 
-            <footer className="main-footer-new-member">
-                <p className="copyright">&copy; {new Date().getFullYear()} CoachApp </p>
-                <p className="author">Design a kód: <span className="page-autor-name">Sandra Heinzová</span></p>
-            </footer>
+            <Footer/>
         </div>
     );
 }

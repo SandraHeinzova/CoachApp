@@ -1,56 +1,20 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Sidebar from '../components/Sidebar';
+
 import '../css/styles_dashboard.css';
 
 function Dashboard() {
     document.title = "CoachApp Dashboard"
 
-    const navigate = useNavigate();
-
-    const handleLogout = (e) => {
-        e.preventDefault();
-        navigate('/');
-    };
-
-    const loggedUser = JSON.parse(localStorage.getItem('user'));
 
     return (
         <div className="dashboard-body">
             <input type="checkbox" id="menu-toggle"/>
-            <header className="top-header">
-                <div className="header-left">
-                    <label htmlFor="menu-toggle" className="hamburger-icon">
-                        <i className="fa-solid fa-bars"></i>
-                    </label>
-                    <div className="brand">
-                        <img src="images/logo.png" alt="Logo" className="nav-logo"/>
-                        <h1>CoachApp</h1>
-                    </div>
-                </div>
-                <div className="header-right">
-                    <div className="user-info">
-                        <span>{loggedUser ? `${loggedUser.firstName} ${loggedUser.lastName}` : 'Host'}</span>
-                        <i className="fa-solid fa-circle-user"></i>
-                        <a onClick={handleLogout} className="logout-btn" title="Odhlásit se">
-                            <i className="fa-solid fa-right-from-bracket"></i>
-                        </a>
-                    </div>
-                </div>
-            </header>
-            <nav className="slide-menu">
-                <ul className="menu-list">
-                    <li><Link to="/dashboard" className="active"><i
-                        className="fa-solid fa-table-columns"></i> Nástěnka</Link></li>
-                    <li><Link to="/team"><i className="fa-solid fa-users"></i> Můj Tým</Link></li>
-                    <li><Link to="/"><i className="fa-solid fa-stopwatch"></i> Tréninky</Link></li>
-                    <li><Link to="/"><i className="fa-solid fa-futbol"></i> Zápasy</Link></li>
-                    <li><Link to="/new_member"><i className="fa-solid fa-user-plus"></i> Nový člen</Link></li>
-                    <li><Link to="/"><i className="fa-solid fa-chart-pie"></i> Statistiky</Link></li>
-                    <li className="separator"></li>
-                    <li><a onClick={handleLogout} className="logout"><i
-                        className="fa-solid fa-right-from-bracket"></i> Odhlásit se</a></li>
-                </ul>
-            </nav>
+            <Header />
+            <Sidebar/>
             <label htmlFor="menu-toggle" className="menu-overlay"></label>
             <main className="dashboard-content">
                 <div className="welcome-row">
@@ -117,10 +81,7 @@ function Dashboard() {
                     </Link>
                 </div>
             </main>
-            <footer className="main-footer">
-                <p className="copyright">&copy; 2025 CoachApp </p>
-                <p className="author">Design a kód: <span className="page-autor-name">Sandra Heinzová</span></p>
-            </footer>
+            <Footer/>
         </div>
     );
 }
