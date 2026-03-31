@@ -7,10 +7,41 @@ function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        navigate('/dashboard');
+
+        try {
+            // 1. Pošleme dotaz na tvůj nový endpoint v Javě
+            const response = await fetch('http://localhost:8080/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: username, // Reactový 'username' pošleme jako 'email' do Javy
+                    password: password
+                }),
+            });
+
+            if (response.ok) {
+                const userData = await response.json();
+
+                // 2. Uložíme si info o přihlášeném uživateli do prohlížeče
+                // Tím budeme vědět, že je Sandra přihlášená i na jiných stránkách
+                localStorage.setItem('user', JSON.stringify(userData));
+
+                alert(`Vítej zpět, ${userData.firstName}!`);
+                navigate('/dashboard');
+            } else {
+                alert("Špatný email nebo heslo! Zkus to znovu.");
+            }
+        } catch (error) {
+            console.error("Chyba při přihlašování:", error);
+            alert("Backend neběží nebo je chyba v síti.");
+        }
     };
+
+    const loggedUser = JSON.parse(localStorage.getItem('user'));
 
     document.title = "CoachApp Login";
 

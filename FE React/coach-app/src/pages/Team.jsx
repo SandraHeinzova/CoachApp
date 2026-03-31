@@ -11,6 +11,8 @@ function Team() {
         navigate('/');
     };
 
+    const loggedUser = JSON.parse(localStorage.getItem('user'));
+
     document.title = "CoachApp Team";
 
     return (
@@ -28,7 +30,7 @@ function Team() {
                 </div>
                 <div className="header-right">
                     <div className="user-info">
-                        <span>Jan Heinz</span>
+                        <span>{loggedUser ? `${loggedUser.firstName} ${loggedUser.lastName}` : 'Host'}</span>
                         <i className="fa-solid fa-circle-user"></i>
                         <a onClick={handleLogout} className="logout-btn" title="Odhlásit se">
                             <i className="fa-solid fa-right-from-bracket"></i>

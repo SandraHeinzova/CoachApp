@@ -302,12 +302,30 @@
     box-sizing: border-box;
 }
 
+/* Úprava pro Parametry hráče - 3 nahoře a 2 vycentrované dole */
 .form-grid-small {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr); /* Použijeme 6 sloupců pro jemnější mřížku */
     gap: 15px;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* První 3 inputy zaberou 2 sloupce každý (3x2 = 6) */
+.form-grid-small .form-group:nth-child(1),
+.form-grid-small .form-group:nth-child(2),
+.form-grid-small .form-group:nth-child(3) {
+    grid-column: span 2;
+}
+
+/* Čtvrtý input (Pozice) začne na druhém sloupci a zabere 2 */
+.form-grid-small .form-group:nth-child(4) {
+    grid-column: 2 / span 2;
+}
+
+/* Pátý input (Noha) zabere další 2 */
+.form-grid-small .form-group:nth-child(5) {
+    grid-column: span 2;
 }
 
 .form-footer-split {
@@ -373,12 +391,15 @@
 
 @media (max-width: 768px) {
     .form-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Na tabletu dáme vše pod sebe nebo do 2 sloupců */
     .form-grid-small { grid-template-columns: 1fr 1fr; }
+    .form-grid-small .form-group:nth-child(n) { grid-column: span 1 !important; }
+
     .new-member-card { padding: 30px; }
 }
 
 @media (max-width: 480px) {
-    /* 1. Nástěnka - karty pod sebe a srovnání hlavičky */
     .dashboard-grid {
         grid-template-columns: 1fr !important;
         gap: 15px !important;
@@ -409,11 +430,14 @@
         font-size: 16px !important;
     }
 
-    /* 2. Formulář - jeden sloupec a nulové ořezy */
     .form-grid, .form-grid-small {
         grid-template-columns: 1fr !important;
         gap: 15px !important;
         width: 100% !important;
+    }
+
+    .form-grid-small .form-group:nth-child(n) {
+        grid-column: span 1 !important;
     }
 
     .new-member-card {
