@@ -10,6 +10,7 @@ import cz.upce.sandra.coachapp.repository.CityRepository;
 import cz.upce.sandra.coachapp.repository.PositionRepository;
 import cz.upce.sandra.coachapp.repository.RoleRepository;
 import cz.upce.sandra.coachapp.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,11 +48,14 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
-        // U recordu se k datům nepřistupuje přes getEmail(), ale jen loginDto.email()
-        System.out.println("Zkouším přihlásit: " + loginDto.email());
+        try {
+            System.out.println("Zkouším přihlásit: " + loginDto.email());
+            UserDto user = userService.authenticate(loginDto.email(), loginDto.password());
 
-        // Tady pak zavoláš službu pro ověření
-        return ResponseEntity.ok(userService.getUserByEmail(loginDto.email()));
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 
     @GetMapping("/roles")

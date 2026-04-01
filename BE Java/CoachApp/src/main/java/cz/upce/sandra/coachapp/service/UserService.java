@@ -5,6 +5,7 @@ import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
 import cz.upce.sandra.coachapp.entity.Player;
 import cz.upce.sandra.coachapp.entity.TeamMember;
 import cz.upce.sandra.coachapp.repository.*;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,18 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private String generateRandomPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder();
+        java.util.Random random = new java.util.Random();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+        return sb.toString();
+    }
+
     @Transactional
     public void registerUser(UserRegistrationDto regDto) {
         TeamMember newUser = new TeamMember();
@@ -44,9 +57,11 @@ public class UserService {
         newUser.setEmail(regDto.email());
         newUser.setPhoneNumber(regDto.phone());
         newUser.setDateOfBirth(regDto.birthDate());
-        newUser.setUsername(regDto.email());
 
-        String tempPassword = "Coach" + (int)(Math.random() * 1000);
+        String generatedUsername = (regDto.firstName() + "." + regDto.lastName()).toLowerCase();
+        newUser.setUsername(generatedUsername);
+
+        String tempPassword = generateRandomPassword(10);
         newUser.setPassword(passwordEncoder.encode(tempPassword));
 
         roleRepository.findById(regDto.roleId()).ifPresent(newUser::setRole);
@@ -103,5 +118,16 @@ public class UserService {
                 member.getEmail(),
                 member.getRole().getName()
         );
+    }
+
+    public UserDto authenticate(String email, String rawPassword) {
+        TeamMember member = teamMemberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Uživatel nenalezen"));
+
+        if (!passwordEncoder.matches(rawPassword, member.getPassword())) {
+            throw new RuntimeException("Špatné přihlašovací údaje");
+        }
+
+        return mapToDto(member);
     }
 }

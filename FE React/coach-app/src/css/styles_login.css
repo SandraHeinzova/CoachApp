@@ -135,6 +135,29 @@ body {
     letter-spacing: 1px;
 }
 
+.unauthorized-card {
+    border-top: 4px solid #e74c3c !important;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: #e74c3c;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.unauthorized-text {
+    color: #ccc;
+    margin: 20px 0 30px 0;
+    line-height: 1.6;
+}
+
+.btn-link {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
 
 
 /* =========================================

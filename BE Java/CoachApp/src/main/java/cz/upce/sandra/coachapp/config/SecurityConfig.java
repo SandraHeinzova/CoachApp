@@ -50,7 +50,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 3. Tohle je to "povolení", které vyřeší ty červené chyby v Chrome
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
