@@ -5,17 +5,14 @@ import lombok.*;
 
 @Entity
 @Table(name = "PLAYERS", schema = "SANDRA")
+@PrimaryKeyJoinColumn(name = "member_ID")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
 
-public class Player {
-
-    @Id
-    @Column(name = "member_ID")
-    private Long id;
+public class Player extends TeamMember {
 
     @Column(name = "facr_id", nullable = false, unique = true)
     private String facrId;
@@ -33,11 +30,6 @@ public class Player {
     private String isHealthy = "Yes";
 
     // --- VAZBY ---
-
-    @OneToOne
-    @MapsId // TOHLE JE TO KOUZLO: Spring vezme ID z TeamMember a dá ho sem jako PK
-    @JoinColumn(name = "member_ID")
-    private TeamMember teamMember;
 
     @ManyToOne
     @JoinColumn(name = "position_ID", nullable = false)

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../css/styles_login.css';
 
 function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function Login() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: username, // Reactový 'username' pošleme jako 'email' do Javy
+                    email: email,
                     password: password
                 }),
             });
@@ -26,8 +26,6 @@ function Login() {
             if (response.ok) {
                 const userData = await response.json();
 
-                // 2. Uložíme si info o přihlášeném uživateli do prohlížeče
-                // Tím budeme vědět, že je Sandra přihlášená i na jiných stránkách
                 localStorage.setItem('user', JSON.stringify(userData));
 
                 alert(`Vítej zpět, ${userData.firstName}!`);
@@ -40,8 +38,6 @@ function Login() {
             alert("Backend neběží nebo je chyba v síti.");
         }
     };
-
-    const loggedUser = JSON.parse(localStorage.getItem('user'));
 
     document.title = "CoachApp Login";
 
@@ -59,9 +55,9 @@ function Login() {
                             <i className="fa-solid fa-user"></i>
                             <input
                                 type="text"
-                                placeholder="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                         </div>

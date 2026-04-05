@@ -23,9 +23,11 @@ function NewMember() {
         facrId: '',
         height: '',
         weight: '',
-        foot: '', // Už není natvrdo RIGHT
+        foot: '',
         positionId: ''
-    });
+    })
+
+    const navigate = useNavigate();
 
     const [selectedRoleName, setSelectedRoleName] = useState("");
 
@@ -77,11 +79,12 @@ function NewMember() {
                 alert(message);
                 navigate('/team');
             } else {
-                alert("Chyba při ukládání (Status: " + response.status + ")");
+                const errorText = await response.text();
+                alert("Chyba při ukládání (Status: " + errorText + ")");
             }
         } catch (error) {
             console.error("Chyba komunikace:", error);
-            alert("Backend neodpovídá.");
+            alert("Backend neodpovídá." + error);
         }
     };
 
@@ -170,9 +173,9 @@ function NewMember() {
                                     <label>Silnější noha</label>
                                     <select name="foot" value={formData.foot} onChange={handleChange}>
                                         <option value="" disabled>Vyberte nohu...</option>
-                                        <option value="RIGHT">Pravá</option>
-                                        <option value="LEFT">Levá</option>
-                                        <option value="BOTH">Obě</option>
+                                        <option value="Right">Pravá</option>
+                                        <option value="Left">Levá</option>
+                                        <option value="Both">Obě</option>
                                     </select>
                                 </div>
                             </div>

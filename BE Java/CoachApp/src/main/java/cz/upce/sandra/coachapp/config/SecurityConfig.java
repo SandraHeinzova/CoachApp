@@ -36,16 +36,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // 1. Povolíme CORS nastavení ze zdroje níže
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // 2. Povolíme VŠECHNY cesty začínající na /api/users/ bez přihlášení
-                        // Tím se React dostane k rolím, městům i registraci
-                        .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers("/api/users/login").permitAll()
+                        .requestMatchers("/api/users/roles", "/api/users/cities", "/api/users/positions").permitAll()
+                        .requestMatchers("/api/users/register").authenticated()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(withDefaults());
+                .httpBasic(basic -> basic.disable())
+                .formLogin(form -> form.disable());
+
 
         return http.build();
     }

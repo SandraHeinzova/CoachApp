@@ -2,10 +2,11 @@ package cz.upce.sandra.coachapp.service;
 
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
+import cz.upce.sandra.coachapp.entity.City;
 import cz.upce.sandra.coachapp.entity.Player;
+import cz.upce.sandra.coachapp.entity.Role;
 import cz.upce.sandra.coachapp.entity.TeamMember;
 import cz.upce.sandra.coachapp.repository.*;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,45 +51,56 @@ public class UserService {
     }
 
     @Transactional
-    public void registerUser(UserRegistrationDto regDto) {
-        TeamMember newUser = new TeamMember();
-        newUser.setFirstName(regDto.firstName());
-        newUser.setLastName(regDto.lastName());
-        newUser.setEmail(regDto.email());
-        newUser.setPhoneNumber(regDto.phone());
-        newUser.setDateOfBirth(regDto.birthDate());
+    public String registerUser(UserRegistrationDto regDto) {
+        String username = regDto.firstName() + "." + regDto.lastName().toLowerCase();
 
-        String generatedUsername = (regDto.firstName() + "." + regDto.lastName()).toLowerCase();
-        newUser.setUsername(generatedUsername);
+        if (teamMemberRepository.findByEmail(regDto.email()).isPresent()) {
+            throw new RuntimeException("Uživatel s tímto emailem již existuje!");
+        }
 
-        String tempPassword = generateRandomPassword(10);
-        newUser.setPassword(passwordEncoder.encode(tempPassword));
+        if (teamMemberRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("Uživatel s touto přezdívkou již existuje!");
+        }
 
-        roleRepository.findById(regDto.roleId()).ifPresent(newUser::setRole);
-        cityRepository.findById(regDto.cityId()).ifPresent(newUser::setCity);
+        if (playerRepository.findByFacrId(regDto.facrId()).isPresent()) {
+            throw new RuntimeException("Uživatel s tímto FAČR číslem již existuje!");
+        }
 
-        TeamMember savedMember = teamMemberRepository.save(newUser);
+        Role role = roleRepository.findById(regDto.roleId())
+                .orElseThrow(() -> new RuntimeException("Role s ID " + regDto.roleId() + " neexistuje!"));
+        City city = cityRepository.findById(regDto.cityId())
+                .orElseThrow(() -> new RuntimeException("Město s ID " + regDto.cityId() + " neexistuje!"));
 
-        roleRepository.findByName("PLAYER").ifPresent(playerRole -> {
-            if (savedMember.getRole().equals(playerRole)) {
+        String password = generateRandomPassword(10);
 
-                Player newPlayer = new Player();
-                newPlayer.setTeamMember(savedMember);
-                newPlayer.setFacrId(regDto.facrId());
-                newPlayer.setWeight(regDto.weight());
-                newPlayer.setHeight(regDto.height());
-                newPlayer.setFoot(regDto.foot());
+        if (role.isNamed("Hráč")) {
+            Player p = new Player();
+            fillCommonData(p, regDto, role, city, password, username);
+            p.setFacrId(regDto.facrId());
+            p.setWeight(regDto.weight());
+            p.setHeight(regDto.height());
+            p.setFoot(regDto.foot());
+            positionRepository.findById(regDto.positionId()).ifPresent(p::setPosition);
+            playerRepository.save(p);
+        } else {
+            TeamMember m = new TeamMember();
+            fillCommonData(m, regDto, role, city, password, username);
+            teamMemberRepository.save(m);
+        }
+        return password;
+    }
 
-                if (regDto.positionId() != null) {
-                    positionRepository.findById(regDto.positionId())
-                            .ifPresent(newPlayer::setPosition);
-                }
-
-                playerRepository.save(newPlayer);
-            }
-        });
-
-        System.out.println("DEBUG: Registrace OK. Dočasné heslo pro " + regDto.email() + ": " + tempPassword);
+    private void fillCommonData(TeamMember member, UserRegistrationDto dto, Role role, City city,
+                                String password, String username) {
+        member.setFirstName(dto.firstName());
+        member.setLastName(dto.lastName());
+        member.setEmail(dto.email());
+        member.setPhoneNumber(dto.phone());
+        member.setDateOfBirth(dto.birthDate());
+        member.setRole(role);
+        member.setCity(city);
+        member.setUsername(username);
+        member.setPassword(passwordEncoder.encode(password));
     }
 
     public List<UserDto> getAllUsers() {
@@ -110,18 +122,11 @@ public class UserService {
     public UserDto getUserByEmail(String email) {
         TeamMember member = teamMemberRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Uživatel s tímto emailem neexistuje"));
-
-        return new UserDto(
-                member.getId(),
-                member.getFirstName(),
-                member.getLastName(),
-                member.getEmail(),
-                member.getRole().getName()
-        );
+        return mapToDto(member);
     }
 
     public UserDto authenticate(String email, String rawPassword) {
-        TeamMember member = teamMemberRepository.findByEmail(email)
+        TeamMember member = teamMemberRepository.findByEmail(email.trim())
                 .orElseThrow(() -> new RuntimeException("Uživatel nenalezen"));
 
         if (!passwordEncoder.matches(rawPassword, member.getPassword())) {

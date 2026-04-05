@@ -10,6 +10,7 @@ import cz.upce.sandra.coachapp.repository.CityRepository;
 import cz.upce.sandra.coachapp.repository.PositionRepository;
 import cz.upce.sandra.coachapp.repository.RoleRepository;
 import cz.upce.sandra.coachapp.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +42,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody UserRegistrationDto regDto) {
-        userService.registerUser(regDto);
-        return "Člen týmu byl úspěšně vytvořen a heslo vygenerováno!";
+    public String register(@Valid @RequestBody UserRegistrationDto regDto) {
+        String generatedPassword = userService.registerUser(regDto);
+        return "Člen týmu byl úspěšně vytvořen. Heslo: " + generatedPassword;
     }
 
     @PostMapping("/login")
