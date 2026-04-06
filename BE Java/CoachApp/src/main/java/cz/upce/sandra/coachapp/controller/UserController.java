@@ -30,9 +30,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @RequestBody UserRegistrationDto regDto) {
-        String generatedPassword = userService.registerUser(regDto);
-        return "Člen týmu byl úspěšně vytvořen. Heslo: " + generatedPassword;
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegistrationDto regDto) {
+        try {
+            String generatedPassword = userService.registerUser(regDto);
+            return ResponseEntity.ok("Člen týmu byl úspěšně vytvořen. Heslo: " + generatedPassword);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")
