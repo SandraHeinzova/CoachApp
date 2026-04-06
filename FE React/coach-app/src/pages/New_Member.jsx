@@ -5,12 +5,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
 
-
 function NewMember() {
-
     const [roles, setRoles] = useState([]);
     const [positions, setPositions] = useState([]);
     const [cities, setCities] = useState([]);
+
+    const [isAddingNewCity, setIsAddingNewCity] = useState(false);
+    const [newCityName, setNewCityName] = useState('');
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -25,10 +26,9 @@ function NewMember() {
         weight: '',
         foot: '',
         positionId: ''
-    })
+    });
 
     const navigate = useNavigate();
-
     const [selectedRoleName, setSelectedRoleName] = useState("");
 
     useEffect(() => {
@@ -67,11 +67,22 @@ function NewMember() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Sestavení finálních dat s trimováním a ošetřením nového města
+        const payload = {
+            ...formData,
+            firstName: formData.firstName.trim(),
+            lastName: formData.lastName.trim(),
+            cityName: isAddingNewCity ? newCityName.trim() : null,
+            // Pokud přidáváme nové město, cityId musí být null pro Spring Boot
+            cityId: isAddingNewCity ? null : (formData.cityId ? parseInt(formData.cityId) : null)
+        };
+
         try {
             const response = await fetch('http://localhost:8080/api/users/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
                 credentials: 'include'
             });
 
@@ -85,7 +96,7 @@ function NewMember() {
             }
         } catch (error) {
             console.error("Chyba komunikace:", error);
-            alert("Backend neodpovídá." + error);
+            alert("Backend neodpovídá: " + error);
         }
     };
 
@@ -144,7 +155,6 @@ function NewMember() {
                             </div>
                         </div>
 
-                        {/* Parametry se zobrazí pouze pokud je vybraná role "Hráč" */}
                         <div className={`player-params-section ${selectedRoleName === 'Hráč' ? 'visible' : ''}`}>
                             <hr className="form-divider"/>
                             <h3 className="section-title">Parametry hráče</h3>
@@ -185,12 +195,32 @@ function NewMember() {
                         <div className="form-footer-split">
                             <div className="form-group city-input">
                                 <label>Město</label>
-                                <select name="cityId" value={formData.cityId} onChange={handleChange} required>
-                                    <option value="" disabled>Vyberte město...</option>
+                                <input
+                                    type="text"
+                                    list="city-options"
+                                    // Zobrazí buď rozepsané nové město, nebo jméno vybraného města ze seznamu
+                                    value={isAddingNewCity ? newCityName : (cities.find(c => c.id == formData.cityId)?.name || '')}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        const existingCity = cities.find(c => c.name === val);
+
+                                        if (existingCity) {
+                                            setIsAddingNewCity(false);
+                                            setFormData(prev => ({ ...prev, cityId: existingCity.id }));
+                                        } else {
+                                            setIsAddingNewCity(true);
+                                            setNewCityName(val);
+                                            setFormData(prev => ({ ...prev, cityId: null }));
+                                        }
+                                    }}
+                                    placeholder="Začněte psát město..."
+                                    required
+                                />
+                                <datalist id="city-options">
                                     {cities.map(c => (
-                                        <option key={c.id} value={c.id}>{c.name}</option>
+                                        <option key={c.id} value={c.name} />
                                     ))}
-                                </select>
+                                </datalist>
                             </div>
                             <button type="submit" className="btn-submit">
                                 <i className="fa-solid fa-plus"></i> PŘIDAT ČLENA
@@ -199,7 +229,6 @@ function NewMember() {
                     </form>
                 </div>
             </main>
-
             <Footer/>
         </div>
     );

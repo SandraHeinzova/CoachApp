@@ -1,6 +1,7 @@
 package cz.upce.sandra.coachapp.service;
 
 import cz.upce.sandra.coachapp.dto.UserDto;
+import cz.upce.sandra.coachapp.entity.City;
 import cz.upce.sandra.coachapp.entity.Role;
 import cz.upce.sandra.coachapp.entity.TeamMember;
 import cz.upce.sandra.coachapp.repository.TeamMemberRepository;
@@ -30,12 +31,17 @@ class UserServiceTest {
         Role adminRole = new Role();
         adminRole.setName("ADMIN");
 
+        City testCity = new City();
+        testCity.setName("Parubice");
+
         TeamMember member = new TeamMember();
         member.setId(1L);
         member.setFirstName("Sandra");
         member.setLastName("Studentka");
         member.setEmail("sandra@upce.cz");
+
         member.setRole(adminRole);
+        member.setCity(testCity);
 
         // Řekneme "databázi", co má vrátit, až se jí zeptáme
         when(repository.findAll()).thenReturn(List.of(member));

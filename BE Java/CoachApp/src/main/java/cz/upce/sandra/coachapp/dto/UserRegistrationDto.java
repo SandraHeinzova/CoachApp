@@ -8,14 +8,15 @@ public record UserRegistrationDto(
         @NotBlank(message = "Jméno je povinné") String firstName,
         @NotBlank(message = "Příjmení je povinné") String lastName,
         @Email(message = "Neplatný formát emailu") String email,
-        String phone,           // Mobil
-        LocalDate birthDate,    // Datum narození
-        String facrId,          // FAČR ID
-        Integer height,         // Výška
-        Integer weight,         // Váha
-        String foot,            // Noha (Pravá/Levá)
-        @NotNull Long roleId,            // Funkce v týmu (ID role z DB)
-        @NotNull Long cityId,            // Město (ID města)
-        Long positionId         // Pozice (ID pozice - jen u hráčů)
+        String phone,
+        LocalDate birthDate,
+        String facrId,
+        Integer height,
+        Integer weight,
+        String foot,
+        @NotNull Long roleId,
+        Long cityId,
+        String cityName,
+        Long positionId
 ) {}
 

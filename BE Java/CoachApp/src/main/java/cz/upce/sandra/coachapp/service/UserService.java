@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,8 +66,21 @@ public class UserService {
 
         Role role = roleRepository.findById(regDto.roleId())
                 .orElseThrow(() -> new RuntimeException("Role s ID " + regDto.roleId() + " neexistuje!"));
-        City city = cityRepository.findById(regDto.cityId())
-                .orElseThrow(() -> new RuntimeException("Město s ID " + regDto.cityId() + " neexistuje!"));
+        City city;
+        if (regDto.cityName() != null && !regDto.cityName().trim().isEmpty()) {
+            String newCityName = regDto.cityName().trim();
+            Optional<City> existingCity = cityRepository.findByNameIgnoreCase(newCityName);
+            if (existingCity.isPresent()) {
+                city = existingCity.get();
+            } else {
+                City newCity = new City();
+                newCity.setName(newCityName);
+                city =  cityRepository.save(newCity);
+            }
+        } else {
+            city = cityRepository.findById(regDto.cityId())
+                    .orElseThrow(() -> new RuntimeException("Město s ID " + regDto.cityId() + " neexistuje!"));
+        }
 
         String password = generateRandomPassword(10);
 
@@ -119,13 +133,29 @@ public class UserService {
     }
 
     private UserDto mapToDto(TeamMember member) {
+        String facrId = null;
+        Integer weight = null;
+        Integer height = null;
+        String foot = null;
+        String positionName = null;
+
+        if (member instanceof Player player) {
+            facrId = player.getFacrId();
+            weight = player.getWeight();
+            height = player.getHeight();
+            foot = player.getFoot();
+            positionName = player.getPosition() != null ? player.getPosition().getName() : "N/A";
+        }
         return new UserDto(
                 member.getId(),
                 member.getFirstName(),
                 member.getLastName(),
+                member.getCity() != null ? member.getCity().getName(): "N/A",
                 member.getEmail(),
                 member.getRole() != null ? member.getRole().getName() : "N/A",
-                member.getPhoneNumber()
+                member.getPhoneNumber(),
+                facrId, weight, height, foot, positionName,
+                member.getDateOfBirth()
         );
     }
 
