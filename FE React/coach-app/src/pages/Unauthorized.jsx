@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import '../css/styles_login.css';
-import Footer from '../components/Footer';
 
 
 function Unauthorized() {
@@ -21,8 +20,6 @@ function Unauthorized() {
                     Zpět na přihlášení
                 </Link>
             </div>
-
-            <Footer/>
         </div>
     );
 }
