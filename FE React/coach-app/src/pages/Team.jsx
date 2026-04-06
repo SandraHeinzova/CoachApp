@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import '../css/styles_team.css';
 import Header from '../components/Header';
@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
 
 function Team() {
-
+    const navigate = useNavigate();
     const [players, setPlayers] = useState([]);
     const [staff, setStaff] = useState([]);
 
@@ -19,6 +19,14 @@ function Team() {
                     credentials: 'include'
                 });
 
+                if (response.status === 401) {
+                    localStorage.removeItem('user')
+                    navigate('/', {
+                        state: {message: "Vaše relace vypršela. Přihlaste se prosím znovu."}
+                    });
+                    return;
+                }
+
                 if (response.ok) {
                     const data = await response.json();
 
@@ -29,7 +37,10 @@ function Team() {
                     setStaff(staffOnly);
                 }
             } catch (error) {
-                console.error("Nepodařilo se načíst členy týmu:", error);
+                console.error("Nepodařilo se navázat spojení se serverem:", error);
+                navigate('/', {
+                    state: {message: "Server je momentálně nedostupný. Zkuste to prosím později."}
+                });
             }
         };
         fetchLoadData();

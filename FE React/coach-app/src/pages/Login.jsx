@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/styles_login.css';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const message = location.state?.message;
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -47,6 +49,14 @@ function Login() {
                     <h1>CoachApp</h1>
                     <p>Vítejte v trenérské zóně</p>
                 </div>
+
+                {message && (
+                    <div className="auth-message-alert">
+                        <i className="fa-solid fa-circle-info"></i>
+                        <span>{message}</span>
+                    </div>
+                )}
+
                 <form onSubmit={handleLogin}>
                     <div className="input-group">
                         <div className="icon-input">

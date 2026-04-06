@@ -159,6 +159,29 @@ body {
     text-align: center;
 }
 
+.auth-message-alert {
+    background-color: #e3f2fd; /* Jemná modrá */
+    color: #1976d2;            /* Tmavší modrá pro text */
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 4px solid #1976d2;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.auth-message-alert i {
+    font-size: 1.1rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* =========================================
    MEDIA QUERIES
