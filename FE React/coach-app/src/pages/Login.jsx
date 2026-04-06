@@ -15,12 +15,10 @@ function Login() {
             const response = await fetch('http://localhost:8080/api/users/login', {
                 method: 'POST',
                 headers: {
+                    'Authorization': 'Basic ' + btoa(email + ':' + password),
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                }),
+                credentials: 'include',
             });
 
             if (response.ok) {

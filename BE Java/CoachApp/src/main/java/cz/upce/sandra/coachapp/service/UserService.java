@@ -2,10 +2,7 @@ package cz.upce.sandra.coachapp.service;
 
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
-import cz.upce.sandra.coachapp.entity.City;
-import cz.upce.sandra.coachapp.entity.Player;
-import cz.upce.sandra.coachapp.entity.Role;
-import cz.upce.sandra.coachapp.entity.TeamMember;
+import cz.upce.sandra.coachapp.entity.*;
 import cz.upce.sandra.coachapp.repository.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -107,6 +104,18 @@ public class UserService {
         return teamMemberRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+
+    public List<Position> getAllPositions() {
+        return positionRepository.findAll();
+    }
+
+    public List<City> getAllCities() {
+        return cityRepository.findAll();
     }
 
     private UserDto mapToDto(TeamMember member) {

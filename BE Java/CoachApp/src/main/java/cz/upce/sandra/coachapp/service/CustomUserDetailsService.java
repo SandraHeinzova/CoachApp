@@ -24,8 +24,8 @@ public class CustomUserDetailsService  implements UserDetailsService {
 
         return User.builder()
                 .username(member.getEmail())
-                .password(member.getPassword()) // Tady je to zašifrované heslo z DB
-                .roles(member.getRole().getName()) // Tady je jeho role (PLAYER, COACH...)
+                .password(member.getPassword())
+                .authorities(member.getRole().getName())
                 .build();
     }
 }

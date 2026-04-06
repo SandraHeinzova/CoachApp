@@ -1,14 +1,10 @@
 package cz.upce.sandra.coachapp.controller;
 
-import cz.upce.sandra.coachapp.dto.LoginDto;
 import cz.upce.sandra.coachapp.entity.City;
 import cz.upce.sandra.coachapp.entity.Role;
 import cz.upce.sandra.coachapp.entity.Position;
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
-import cz.upce.sandra.coachapp.repository.CityRepository;
-import cz.upce.sandra.coachapp.repository.PositionRepository;
-import cz.upce.sandra.coachapp.repository.RoleRepository;
 import cz.upce.sandra.coachapp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,21 +15,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost:5173")
 
 public class UserController {
 
     private final UserService userService;
-    private final RoleRepository roleRepository;
-    private final PositionRepository positionRepository;
-    private final CityRepository cityRepository;
 
-    public UserController(UserService userService, RoleRepository roleRepository, PositionRepository positionRepository,
-                          CityRepository cityRepository) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
-        this.positionRepository = positionRepository;
-        this.cityRepository = cityRepository;
     }
 
     @GetMapping
@@ -48,29 +36,32 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<?> login(java.security.Principal principal) {
         try {
-            System.out.println("Zkouším přihlásit: " + loginDto.email());
-            UserDto user = userService.authenticate(loginDto.email(), loginDto.password());
+            String email = principal.getName();
+            System.out.println("Spring Security úspěšně ověřil uživatele: " + email);
+
+            UserDto user = userService.getUserByEmail(email);
 
             return ResponseEntity.ok(user);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Chyba po úspěšném ověření: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Chyba při načítání profilu");
         }
     }
 
     @GetMapping("/roles")
     public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+        return userService.getAllRoles();
     }
 
     @GetMapping("/positions")
     public List<Position> getAllPositions() {
-        return positionRepository.findAll();
+        return userService.getAllPositions();
     }
 
     @GetMapping("/cities")
     public List<City> getAllCities() {
-        return cityRepository.findAll();
+        return userService.getAllCities();
     }
 }

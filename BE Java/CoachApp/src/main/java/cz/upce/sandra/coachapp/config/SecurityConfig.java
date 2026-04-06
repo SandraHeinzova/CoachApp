@@ -1,11 +1,13 @@
 package cz.upce.sandra.coachapp.config;
 
 import cz.upce.sandra.coachapp.service.CustomUserDetailsService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,12 +41,18 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/login").permitAll()
+                        .requestMatchers("/api/users/login").authenticated()
                         .requestMatchers("/api/users/roles", "/api/users/cities", "/api/users/positions").permitAll()
-                        .requestMatchers("/api/users/register").authenticated()
+                        .requestMatchers("/api/users/register").hasAnyAuthority("Admin", "Trenér", "Asistent trenéra")
                         .anyRequest().authenticated()
                 )
-                .httpBasic(basic -> basic.disable())
+
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                )
+                .httpBasic(basic -> basic.authenticationEntryPoint((request, response, authException) -> {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+                }))
                 .formLogin(form -> form.disable());
 
 
