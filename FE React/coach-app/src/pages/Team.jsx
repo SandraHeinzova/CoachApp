@@ -120,8 +120,7 @@ function Team() {
                         staff.map((member) => (
                             <details className="member-item" name="staff-accordion" key={member.id}>
                                 <summary className="member-header staff-header">
-                                    <div className="member-number staff-icon">
-                                        <i className="fa-solid fa-user-tie"></i>
+                                    <div className="member-number staff-icon"><i className="fa-solid fa-user-tie"></i>
                                     </div>
                                     <div className="member-info">
                                         <span className="name">{member.firstName} {member.lastName}</span>
@@ -130,9 +129,32 @@ function Team() {
                                     <i className="fa-solid fa-chevron-down arrow"></i>
                                 </summary>
                                 <div className="member-detail">
-                                    <div className="contact-text">
-                                        <span className="label">Email</span>
-                                        <a href={`mailto:${member.email}`} className="value-link">{member.email}</a>
+                                    <div className="detail-grid">
+                                        <div className="detail-left">
+                                            <div className="coach-license">
+                                                <span className="license-label">Licence</span>
+                                                <span className="license-badge">UEFA B</span>
+                                            </div>
+                                        </div>
+                                        <div className="detail-right">
+                                            <ul className="contact-list">
+                                                <li>
+                                                    <div className="icon-box"><i className="fa-solid fa-envelope"></i>
+                                                    </div>
+                                                    <div className="contact-text">
+                                                        <span className="label">Email</span>
+                                                        <a href={`mailto:${member.email}`} className="value-link">{member.email}</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className="icon-box"><i className="fa-solid fa-phone"></i>
+                                                    </div>
+                                                    <div className="contact-text">
+                                                        <a href={`tel:${member.phoneNumber}`} className="value-link">{member.phoneNumber}</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </details>

@@ -124,7 +124,8 @@ public class UserService {
                 member.getFirstName(),
                 member.getLastName(),
                 member.getEmail(),
-                member.getRole() != null ? member.getRole().getName() : "N/A"
+                member.getRole() != null ? member.getRole().getName() : "N/A",
+                member.getPhoneNumber()
         );
     }
 
