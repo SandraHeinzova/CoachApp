@@ -5,6 +5,11 @@
 **/.idea/
 **/*.iml
 
+.idea/
+.vscode/
+dist/
+*.env
+
 # React / Node
 **/node_modules/
 **/build/
