@@ -30,7 +30,7 @@ function Dashboard() {
                         </div>
                         <h3>Můj Tým</h3>
                     </Link>
-                    <Link to="/" className="card team-card">
+                    <Link to="/trainings" className="card team-card">
                         <div className="icon-circle">
                             <i className="fa-solid fa-stopwatch"></i>
                         </div>
@@ -61,13 +61,13 @@ function Dashboard() {
                             </ul>
                         </div>
                     </div>
-                    <Link to="/" className="card team-card">
+                    <Link to="/stats" className="card team-card">
                         <div className="icon-circle">
                             <i className="fa-solid fa-chart-line"></i>
                         </div>
                         <h3>Statistiky</h3>
                     </Link>
-                    <Link to="/" className="card team-card">
+                    <Link to="/matches" className="card team-card">
                         <div className="icon-circle">
                             <i className="fa-solid fa-futbol"></i>
                         </div>
