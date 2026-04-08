@@ -37,13 +37,13 @@ function NewMember() {
             try {
                 const [resRoles, resPos, resCities] = await Promise.all([
                     api.get('/dictionaries/roles'),
-                    api.get('dictionaries/positions'),
-                    api.get('dictionaries/cities')
+                    api.get('/dictionaries/positions'),
+                    api.get('/dictionaries/cities')
                 ]);
 
-                setRoles(await resRoles.json());
-                setPositions(await resPos.json());
-                setCities(await resCities.json());
+                setRoles(resRoles.data);
+                setPositions(resPos.data);
+                setCities(resCities.data);
 
             } catch (error) {
                 console.error("Nepodařilo se načíst číselníky:", error);
@@ -68,7 +68,6 @@ function NewMember() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Sestavení finálních dat s trimováním a ošetřením nového města
         const payload = {
             ...formData,
             firstName: formData.firstName.trim(),
@@ -87,7 +86,7 @@ function NewMember() {
         } catch (error) {
             console.error("Chyba komunikace:", error);
             if (error.response) {
-                alert("Chyba při ukládání (Status: " + error.response.status + ")");
+                alert("Chyba: " + (error.response.data ||  "Při ukládání došlo k chybě."));
             } else {
                 alert("Backend neodpovidá " + error.message);
             }

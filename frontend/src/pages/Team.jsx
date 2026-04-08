@@ -47,6 +47,21 @@ function Team() {
         }
     };
 
+    const calculateAge = (birthDate) => {
+        if (!birthDate) return 'N/A';
+
+        const today = new Date();
+        const birth = new Date(birthDate);
+
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        return age
+    };
+
     return (
         <div className="dashboard-body">
             <input type="checkbox" id="menu-toggle"/>
@@ -116,7 +131,7 @@ function Team() {
                                                 </div>
                                                 <div className="info-item">
                                                     <span className="label">Věk</span>
-                                                    <span className="value">15 let</span>
+                                                    <span className="value">{calculateAge(player.dateOfBirth)} let</span>
                                                 </div>
                                                 <div className="info-item">
                                                     <span className="label">Váha</span>
@@ -128,7 +143,9 @@ function Team() {
                                                 </div>
                                                 <div className="info-item">
                                                     <span className="label">Noha</span>
-                                                    <span className="value">{player.foot}</span>
+                                                    <span className="value">
+                                                        {player.foot === 'Right' ? 'Pravá' : player.foot === 'Left' ? 'Levá' : 'Obě'}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
