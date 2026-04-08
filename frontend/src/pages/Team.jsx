@@ -34,6 +34,19 @@ function Team() {
         fetchLoadData();
     }, []);
 
+    const handleDeactivate = async (playerId, fullName) => {
+        if (window.confirm(`Opravdu chcete člena ${fullName} deaktivovat?`)) {
+            try {
+                await api.patch(`/users/${playerId}/deactivate`);
+                setPlayers(prev => prev.filter(p => p.id !== playerId));
+                setStaff(prev => prev.filter(s => s.id !== playerId));
+            } catch (error) {
+                console.error("Deaktivace selhala: ", error);
+                alert("Nepodařilo se člena deaktivovat.")
+            }
+        }
+    };
+
     return (
         <div className="dashboard-body">
             <input type="checkbox" id="menu-toggle"/>
@@ -221,7 +234,11 @@ function Team() {
                                         <button className="btn-graph"><i className="fa-solid fa-chart-area"></i> Graf hodnocení</button>
                                         <div className="footer-right-group">
                                             <button className="btn-edit-profile"><i className="fa-solid fa-pen"></i> Upravit profil</button>
-                                            <button className="btn-deactivate"><i className="fa-solid fa-user-xmark"></i></button>
+                                            <button
+                                                className="btn-deactivate"
+                                            onClick={() => handleDeactivate(player.id, `${player.firstName} ${player.lastName}`)}>
+                                                <i className="fa-solid fa-user-xmark"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -276,6 +293,19 @@ function Team() {
                                                 </li>
                                             </ul>
                                         </div>
+
+                                        <hr className="detail-divider" />
+                                        <div className="detail-footer-actions">
+                                            <div className="footer-right-group">
+                                                <button className="btn-edit-profile"><i className="fa-solid fa-pen"></i> Upravit kontakt</button>
+                                                <button
+                                                    className="btn-deactivate"
+                                                    onClick={() => handleDeactivate(member.id, `${member.firstName} ${member.lastName}`)}>
+                                                    <i className="fa-solid fa-user-xmark"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </details>

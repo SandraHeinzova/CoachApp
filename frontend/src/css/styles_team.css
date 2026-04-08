@@ -621,11 +621,17 @@ details.season-dropdown summary::-webkit-details-marker {
     color: #002855;
 }
 
-
 .detail-footer-actions {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    /* Změníme z space-between na flex-end, což tlačí vše doprava */
+    justify-content: flex-end;
+    gap: 15px; /* Mezera mezi tlačítky */
+}
+
+/* A pro hráče, kde ten graf MÁŠ, přidáme výjimku: */
+.detail-footer-actions:has(.btn-graph) {
+    justify-content: space-between;
 }
 
 .footer-right-group {
