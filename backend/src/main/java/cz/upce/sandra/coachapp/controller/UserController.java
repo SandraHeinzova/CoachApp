@@ -1,8 +1,5 @@
 package cz.upce.sandra.coachapp.controller;
 
-import cz.upce.sandra.coachapp.entity.City;
-import cz.upce.sandra.coachapp.entity.Role;
-import cz.upce.sandra.coachapp.entity.Position;
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
 import cz.upce.sandra.coachapp.service.UserService;
@@ -52,20 +49,5 @@ public class UserController {
             System.out.println("Chyba po úspěšném ověření: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Chyba při načítání profilu");
         }
-    }
-
-    @GetMapping("/roles")
-    public List<Role> getAllRoles() {
-        return userService.getAllRoles();
-    }
-
-    @GetMapping("/positions")
-    public List<Position> getAllPositions() {
-        return userService.getAllPositions();
-    }
-
-    @GetMapping("/cities")
-    public List<City> getAllCities() {
-        return userService.getAllCities();
     }
 }
