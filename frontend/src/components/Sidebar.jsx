@@ -4,8 +4,12 @@ function Sidebar() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const handleLogout = (e) => {
-        e.preventDefault();
+    const handleLogout = async () => {
+        try {
+            await api.post('/users/logout');
+        } catch (err) {
+            console.error("Server logout failed, but clearing local data anyway.");
+        }
         localStorage.removeItem('user');
         navigate('/');
     };
