@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import api from '../api/axiosInstance.js'
 import '../css/styles_team.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,39 +10,26 @@ function Team() {
     const navigate = useNavigate();
     const [players, setPlayers] = useState([]);
     const [staff, setStaff] = useState([]);
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         document.title = "CoachApp Team";
 
         const fetchLoadData = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/users', {
-                    credentials: 'include'
-                });
+                const response = await api.get('/users');
+                const data = response.data;
 
-                if (response.status === 401) {
-                    localStorage.removeItem('user')
-                    navigate('/', {
-                        state: {message: "Vaše relace vypršela. Přihlaste se prosím znovu."}
-                    });
-                    return;
-                }
+                const playersOnly = data.filter(user => user.roleName === 'Hráč');
+                const staffOnly = data.filter(user => user.roleName !== 'Hráč' && user.roleName !== 'Admin' );
 
-                if (response.ok) {
-                    const data = await response.json();
+                setPlayers(playersOnly);
+                setStaff(staffOnly);
 
-                    const playersOnly = data.filter(user => user.roleName === 'Hráč');
-                    const staffOnly = data.filter(user => user.roleName !== 'Hráč' && user.roleName !== 'Admin' );
-
-                    setPlayers(playersOnly);
-                    setStaff(staffOnly);
-                }
             } catch (error) {
                 console.error("Nepodařilo se navázat spojení se serverem:", error);
-                navigate('/', {
-                    state: {message: "Server je momentálně nedostupný. Zkuste to prosím později."}
-                });
-            }
+                setErrorMessage("Server je momentálně nedostupný. Zkuste to prosím později.");
+                }
         };
         fetchLoadData();
     }, []);
@@ -57,6 +45,13 @@ function Team() {
                 <div className="welcome-banner">
                     <h2>Můj Tým</h2>
                 </div>
+
+                {errorMessage && (
+                    <div className="auth-message-alert" style={{backgroundColor: '#dc3545', color: 'white', marginBottom: '20px'}}>
+                        <i className="fa-solid fa-triangle-exclamation"></i>
+                        <span style={{marginLeft: '10px'}}>{errorMessage}</span>
+                    </div>
+                )}
 
                 {/* --- SEKCE HRÁČI --- */}
                 <h3 className="list-category">Hráči</h3>

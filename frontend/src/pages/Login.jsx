@@ -1,45 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // PŘIDÁN useEffect
 import { useNavigate, useLocation } from 'react-router-dom';
+import api from '../api/axiosInstance.js';
 import '../css/styles_login.css';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [sessionMessage, setSessionMessage] = useState('');
+
     const navigate = useNavigate();
     const location = useLocation();
-    const message = location.state?.message;
+    const routerMessage = location.state?.message;
+
+    useEffect(() => {
+        if (localStorage.getItem('logoutReason') === 'session_expired') {
+            setSessionMessage('Došlo k automatickému odhlášení po delší nečinnosti. Prosím, přihlašte se znovu.');
+            localStorage.removeItem('logoutReason'); // Doplněn středník pro pořádek
+        }
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            // 1. Pošleme dotaz na tvůj nový endpoint v Javě
-            const response = await fetch('http://localhost:8080/api/users/login', {
-                method: 'POST',
+            // Doporučuji přidat lomítko na začátek '/users/login' pro jistotu
+            const response = await api.post('/users/login', {}, {
                 headers: {
                     'Authorization': 'Basic ' + btoa(email + ':' + password),
-                    'Content-Type': 'application/json',
                 },
-                credentials: 'include',
             });
 
-            if (response.ok) {
-                const userData = await response.json();
+            const userData = response.data;
 
-                localStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('user', JSON.stringify(userData));
 
-                alert(`Vítej zpět, ${userData.firstName}!`);
-                navigate('/dashboard');
-            } else {
-                alert("Špatný email nebo heslo! Zkus to znovu.");
-            }
+            alert(`Vítej zpět, ${userData.firstName}!`);
+            navigate('/dashboard');
+
         } catch (error) {
             console.error("Chyba při přihlašování:", error);
-            alert("Backend neběží nebo je chyba v síti.");
+
+            if (error.response && error.response.status === 401) {
+                alert("Špatný email nebo heslo! Zkus to znovu.");
+            } else { // OPRAVENÁ CHYBĚJÍCÍ ZÁVORKA ZDE
+                alert("Backend neběží nebo je chyba v síti.");
+            }
         }
     };
 
     document.title = "CoachApp Login";
+
+    const displayMessage = sessionMessage || routerMessage;
 
     return (
         <div className="login-page-container">
@@ -50,10 +61,10 @@ function Login() {
                     <p>Vítejte v trenérské zóně</p>
                 </div>
 
-                {message && (
+                {displayMessage && (
                     <div className="auth-message-alert">
                         <i className="fa-solid fa-circle-info"></i>
-                        <span>{message}</span>
+                        <span>{displayMessage}</span>
                     </div>
                 )}
 

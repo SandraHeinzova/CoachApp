@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../api/axiosInstance.js'
 import '../css/styles_new_member.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -35,16 +36,15 @@ function NewMember() {
         const fetchMetadata = async () => {
             try {
                 const [resRoles, resPos, resCities] = await Promise.all([
-                    fetch('http://localhost:8080/api/users/roles'),
-                    fetch('http://localhost:8080/api/users/positions'),
-                    fetch('http://localhost:8080/api/users/cities')
+                    api.get('/dictionaries/roles'),
+                    api.get('dictionaries/positions'),
+                    api.get('dictionaries/cities')
                 ]);
 
-                if (resRoles.ok && resPos.ok && resCities.ok) {
-                    setRoles(await resRoles.json());
-                    setPositions(await resPos.json());
-                    setCities(await resCities.json());
-                }
+                setRoles(await resRoles.json());
+                setPositions(await resPos.json());
+                setCities(await resCities.json());
+
             } catch (error) {
                 console.error("Nepodařilo se načíst číselníky:", error);
             }
@@ -79,24 +79,18 @@ function NewMember() {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/users/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-                credentials: 'include'
-            });
+            const response = await api.post('/users/register', payload);
 
-            if (response.ok) {
-                const message = await response.text();
-                alert(message);
-                navigate('/team');
-            } else {
-                const errorText = await response.text();
-                alert("Chyba při ukládání (Status: " + errorText + ")");
-            }
+            alert(response.data || "Člen byl úspěšně přidán");
+            navigate('/team');
+
         } catch (error) {
             console.error("Chyba komunikace:", error);
-            alert("Backend neodpovídá: " + error);
+            if (error.response) {
+                alert("Chyba při ukládání (Status: " + error.response.status + ")");
+            } else {
+                alert("Backend neodpovidá " + error.message);
+            }
         }
     };
 
