@@ -115,7 +115,7 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        return teamMemberRepository.findAll().stream()
+        return teamMemberRepository.findAllByIsActive("Yes").stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
@@ -174,5 +174,14 @@ public class UserService {
         }
 
         return mapToDto(member);
+    }
+
+    @Transactional
+    public void deactivateUser(Long id) {
+        TeamMember member = teamMemberRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Uživatel s ID " + id + " nebyl nalezen."));
+
+        member.setIsActive("No");
+        teamMemberRepository.save(member);
     }
 }
