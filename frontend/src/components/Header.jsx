@@ -1,17 +1,29 @@
 import { useNavigate } from 'react-router-dom';
+import api from '../api/axiosInstance';
+import { showAlert } from '../components/AlertService';
 
 function Header() {
     const navigate = useNavigate();
     const loggedUser = JSON.parse(localStorage.getItem('user'));
 
     const handleLogout = async () => {
-        try {
-            await api.post('/users/logout');
-        } catch (err) {
-            console.error("Server logout failed, but clearing local data anyway.");
+        const result = await showAlert.confirm(
+            "Odhlášení",
+            "Opravdu se chcete odhlásit?"
+        );
+
+        if (result.isConfirmed) {
+            try {
+                await api.post('/users/logout');
+                showAlert.success("Odhlášeno", "Byli jste úspěšně odhlášeni.")
+            } catch (err) {
+                console.error("Server logout failed:", err);
+                showAlert.success("Odhlášeno", "Lokální relace byla ukončena.")
+            } finally {
+                localStorage.removeItem('user');
+                navigate('/');
+            }
         }
-        localStorage.removeItem('user');
-        navigate('/');
     };
 
     return (
