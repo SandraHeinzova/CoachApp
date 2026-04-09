@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { showAlert } from '../components/alertService';
+import { showAlert } from '../components/AlertService';
 import api from '../api/axiosInstance.js'
 import '../css/styles_new_member.css';
 import Header from '../components/Header';
@@ -191,7 +191,6 @@ function NewMember() {
                                 <input
                                     type="text"
                                     list="city-options"
-                                    // Zobrazí buď rozepsané nové město, nebo jméno vybraného města ze seznamu
                                     value={isAddingNewCity ? newCityName : (cities.find(c => c.id == formData.cityId)?.name || '')}
                                     onChange={(e) => {
                                         const val = e.target.value;

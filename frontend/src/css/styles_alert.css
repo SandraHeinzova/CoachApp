@@ -1,5 +1,3 @@
-
-/* Styl pro tlačítko v SweetAlertu */
 .swal-custom-button {
     background-color: #FFD700 !important;
     color: #002855 !important;
@@ -13,24 +11,23 @@
 }
 
 .swal-custom-button:focus {
-    outline: none !important; /* Odstraní ten modrý čtverec */
+    outline: none !important;
     box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5) !important;
 }
 
-/* Aby se barva pozadí skutečně aplikovala a nebyla agresivní */
 .swal-custom-popup {
     background-color: #001a33 !important;
-    border: 1px solid rgba(255, 215, 0, 0.3) !important; /* Velmi jemný zlatý okraj */
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
     border-radius: 15px !important;
 }
 
 .swal-custom-title {
-    color: #FFD700 !important; /* Nadpis bude zlatý */
+    color: #FFD700 !important;
     font-size: 24px !important;
     font-weight: 700 !important;
 }
 .swal-custom-secondary-button {
-    background-color: #444 !important; /* Tmavě šedá, aby nebila do očí */
+    background-color: #444 !important;
     color: white !important;
     padding: 10px 25px !important;
     border-radius: 8px !important;

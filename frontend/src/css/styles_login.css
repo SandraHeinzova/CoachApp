@@ -160,8 +160,8 @@ body {
 }
 
 .auth-message-alert {
-    background-color: #e3f2fd; /* Jemná modrá */
-    color: #1976d2;            /* Tmavší modrá pro text */
+    background-color: #e3f2fd;
+    color: #1976d2;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;

@@ -2,7 +2,6 @@ import Swal from 'sweetalert2';
 import '../css/styles_alert.css';
 
 
-// Základní konfigurace, která sjednocuje vzhled podle tvého CSS
 const baseConfig = {
     background: '#001a33',
     color: '#ffffff',
@@ -17,7 +16,6 @@ const baseConfig = {
 };
 
 export const showAlert = {
-    // Úspěch (např. přihlášení, uložení)
     success: (title, text = '') => {
         return Swal.fire({
             ...baseConfig,
@@ -29,7 +27,6 @@ export const showAlert = {
         });
     },
 
-    // Chyba (např. špatné heslo)
     error: (title, text = '') => {
         return Swal.fire({
             ...baseConfig,
@@ -40,7 +37,6 @@ export const showAlert = {
         });
     },
 
-    // Potvrzení (např. deaktivace člena)
     confirm: (title, text = '') => {
         return Swal.fire({
             ...baseConfig,
@@ -53,7 +49,6 @@ export const showAlert = {
         });
     },
 
-    // Tvoje WIP hláška
     wip: (title, text = '') => {
         return Swal.fire({
             ...baseConfig,

@@ -258,7 +258,7 @@
     overflow: hidden;
     border-top-color: #d63031 !important;
     min-height: 240px;
-    padding: 0 !important; /* Důležité: padding musí být nula, řešíme ho uvnitř */
+    padding: 0 !important;
     display: flex;
     flex-direction: column;
 }
@@ -378,7 +378,7 @@
     background: #f4f6f8;
     width: 100%;
     text-align: center;
-    padding: 20px 0 !important; /* Opraveno z O na 0 */
+    padding: 20px 0 !important;
     color: #888;
     font-size: 11px;
     line-height: 1.4;

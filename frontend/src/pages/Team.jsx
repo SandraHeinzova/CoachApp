@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../api/axiosInstance.js'
 import '../css/styles_team.css';
-import { showAlert } from '../components/alertService';
+import { showAlert } from '../components/AlertService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';

@@ -54,7 +54,6 @@ function App() {
             } />
 
             {/* --- 404 NOT FOUND --- */}
-            {/* Tato cesta musí být VŽDY až úplně poslední */}
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

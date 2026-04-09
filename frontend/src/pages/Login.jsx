@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'; // PŘIDÁN useEffect
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { showAlert } from '../components/alertService';
+import { showAlert } from '../components/AlertService';
 import api from '../api/axiosInstance.js';
 import '../css/styles_login.css';
 
@@ -16,7 +16,7 @@ function Login() {
     useEffect(() => {
         if (localStorage.getItem('logoutReason') === 'session_expired') {
             setSessionMessage('Došlo k automatickému odhlášení po delší nečinnosti. Prosím, přihlašte se znovu.');
-            localStorage.removeItem('logoutReason'); // Doplněn středník pro pořádek
+            localStorage.removeItem('logoutReason');
         }
     }, []);
 
