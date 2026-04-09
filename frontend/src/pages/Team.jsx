@@ -10,12 +10,49 @@ function Team() {
     const navigate = useNavigate();
     const [players, setPlayers] = useState([]);
     const [staff, setStaff] = useState([]);
+    const [cities, setCities] = useState([])
     const [errorMessage, setErrorMessage] = useState(null)
+
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editingMember, setEditingMember] = useState(null);
+
+    const openEditModal = (member) => {
+        setEditingMember({...member});
+        setIsEditModalOpen(true)
+    }
+
+    const handleUpdateSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const payload = {
+                email: editingMember.email,
+                phone: editingMember.phoneNumber,
+                cityName: editingMember.roleName === 'Hráč' ? editingMember.cityName : null
+            };
+            await api.put(`/users/${editingMember.id}`, payload);
+
+            const updateList = (list) => list.map(m =>
+                m.id === editingMember.id ? {...m, ...editingMember} : m
+            );
+
+            setPlayers(updateList(players));
+            setStaff(updateList(staff));
+
+            alert("Údaje byly  uloženy.");
+            setIsEditModalOpen(false);
+        } catch (error) {
+            console.error("Aktualizace selhala:", error);
+            alert("Nepodařilo se uložit změny.");
+        }
+    };
 
     useEffect(() => {
         document.title = "CoachApp Team";
 
         const fetchLoadData = async () => {
+            const citiesRes = await api.get('/dictionaries/cities');
+            setCities(citiesRes.data)
+
             try {
                 const response = await api.get('/users');
                 const data = response.data;
@@ -250,7 +287,8 @@ function Team() {
                                     <div className="detail-footer-actions">
                                         <button className="btn-graph"><i className="fa-solid fa-chart-area"></i> Graf hodnocení</button>
                                         <div className="footer-right-group">
-                                            <button className="btn-edit-profile"><i className="fa-solid fa-pen"></i> Upravit profil</button>
+                                            <button className="btn-edit-profile" onClick={() => openEditModal(player)}>
+                                                <i className="fa-solid fa-pen"></i> Upravit profil</button>
                                             <button
                                                 className="btn-deactivate"
                                             onClick={() => handleDeactivate(player.id, `${player.firstName} ${player.lastName}`)}>
@@ -314,7 +352,8 @@ function Team() {
                                         <hr className="detail-divider" />
                                         <div className="detail-footer-actions">
                                             <div className="footer-right-group">
-                                                <button className="btn-edit-profile"><i className="fa-solid fa-pen"></i> Upravit kontakt</button>
+                                                <button className="btn-edit-profile" onClick={() => openEditModal(member)}>
+                                                    <i className="fa-solid fa-pen"></i> Upravit kontakt</button>
                                                 <button
                                                     className="btn-deactivate"
                                                     onClick={() => handleDeactivate(member.id, `${member.firstName} ${member.lastName}`)}>
@@ -331,6 +370,64 @@ function Team() {
                 </div>
             </main>
             <Footer/>
+
+            {isEditModalOpen && editingMember && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3>Aktualizace: {editingMember.firstName} {editingMember.lastName}</h3>
+                        </div>
+
+                        <form onSubmit={handleUpdateSubmit}>
+                            <div className="modal-form-grid">
+
+                                <div className="form-group">
+                                    <label>Email</label>
+                                    <input
+                                        type="email"
+                                        value={editingMember.email || ''}
+                                        onChange={(e) => setEditingMember({...editingMember, email: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Mobil</label>
+                                    <input
+                                        type="tel"
+                                        value={editingMember.phoneNumber || ''}
+                                        onChange={(e) => setEditingMember({...editingMember, phoneNumber: e.target.value})}
+                                    />
+                                </div>
+
+                                {editingMember.roleName === 'Hráč' && (
+                                    <div className="form-group">
+                                        <label>Město</label>
+                                        <input
+                                            type="text"
+                                            list="modal-city-options"
+                                            value={editingMember.cityName || ''}
+                                            onChange={(e) => setEditingMember({...editingMember, cityName: e.target.value})}
+                                        />
+                                        <datalist id="modal-city-options">
+                                            {cities.map(c => (
+                                                <option key={c.id} value={c.name} />
+                                            ))}
+                                        </datalist>
+                                    </div>
+                                )}
+
+                            </div>
+
+                            <div className="modal-footer">
+                                <button type="button" className="btn-secondary" onClick={() => setIsEditModalOpen(false)}>Zrušit</button>
+                                <button type="submit" className="btn-primary">
+                                    <i className="fa-solid fa-check" style={{marginRight: '8px'}}></i> AKTUALIZOVAT
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

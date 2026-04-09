@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/login").authenticated()
                         .requestMatchers("/api/dictionaries/**").permitAll()
-                        .requestMatchers("/api/users/register").hasAnyAuthority("Admin", "Trenér", "Asistent trenéra")
+                        .requestMatchers("/api/users/**").hasAnyAuthority("Admin", "Trenér", "Asistent trenéra")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

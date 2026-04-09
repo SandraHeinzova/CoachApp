@@ -2,6 +2,7 @@ package cz.upce.sandra.coachapp.service;
 
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
+import cz.upce.sandra.coachapp.dto.UserUpdateDto;
 import cz.upce.sandra.coachapp.entity.*;
 import cz.upce.sandra.coachapp.repository.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -182,6 +183,28 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Uživatel s ID " + id + " nebyl nalezen."));
 
         member.setIsActive("No");
+        teamMemberRepository.save(member);
+    }
+
+    @Transactional
+    public void updateUser(Long id, UserUpdateDto dto) {
+        TeamMember member = teamMemberRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Uživatel nenalezen"));
+
+        member.setEmail(dto.email());
+        member.setPhoneNumber(dto.phone());
+
+        if (dto.cityName() != null && !dto.cityName().trim().isEmpty()) {
+            String name = dto.cityName().trim();
+            City city = cityRepository.findByNameIgnoreCase(name)
+                    .orElseGet(() -> {
+                        City newCity = new City();
+                        newCity.setName(name);
+                        return cityRepository.save(newCity);
+                    });
+            member.setCity(city);
+        }
+
         teamMemberRepository.save(member);
     }
 }

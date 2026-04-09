@@ -2,6 +2,7 @@ package cz.upce.sandra.coachapp.controller;
 
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
+import cz.upce.sandra.coachapp.dto.UserUpdateDto;
 import cz.upce.sandra.coachapp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -61,4 +62,16 @@ public class UserController {
                     .body("Chyba při deaktivaci: " + e.getMessage());
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateDto dto) {
+        try {
+            userService.updateUser(id, dto);
+            return ResponseEntity.ok("Údaje byly úspěšně aktualizovány.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Chyba při aktualizaci: " + e.getMessage());
+        }
+    }
+
 }
