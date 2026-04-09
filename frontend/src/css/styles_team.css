@@ -954,37 +954,6 @@ details.season-dropdown summary::-webkit-details-marker {
     border-top: 1px solid #eee;
 }
 
-/* Styl pro tlačítko v SweetAlertu */
-.swal-custom-button {
-    background-color: #FFD700 !important;
-    color: #002855 !important;
-    padding: 10px 30px !important;
-    border-radius: 8px !important;
-    font-weight: bold !important;
-    border: none !important;
-    cursor: pointer !important;
-    margin-top: 10px !important;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3) !important;
-}
-
-.swal-custom-button:focus {
-    outline: none !important; /* Odstraní ten modrý čtverec */
-    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5) !important;
-}
-
-/* Aby se barva pozadí skutečně aplikovala a nebyla agresivní */
-.swal-custom-popup {
-    background-color: #001a33 !important;
-    border: 1px solid rgba(255, 215, 0, 0.3) !important; /* Velmi jemný zlatý okraj */
-    border-radius: 15px !important;
-}
-
-.swal-custom-title {
-    color: #FFD700 !important; /* Nadpis bude zlatý */
-    font-size: 24px !important;
-    font-weight: 700 !important;
-}
-
 .btn-secondary {
     background: #f1f1f1;
     color: #555;

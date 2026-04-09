@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'; // PŘIDÁN useEffect
 import { useNavigate, useLocation } from 'react-router-dom';
+import { showAlert } from '../components/alertService';
 import api from '../api/axiosInstance.js';
 import '../css/styles_login.css';
 
@@ -23,7 +24,6 @@ function Login() {
         e.preventDefault();
 
         try {
-            // Doporučuji přidat lomítko na začátek '/users/login' pro jistotu
             const response = await api.post('/users/login', {}, {
                 headers: {
                     'Authorization': 'Basic ' + btoa(email + ':' + password),
@@ -34,16 +34,16 @@ function Login() {
 
             localStorage.setItem('user', JSON.stringify(userData));
 
-            alert(`Vítej zpět, ${userData.firstName}!`);
+            showAlert.success(`Vítej zpět, ${userData.firstName}!`);
             navigate('/dashboard');
 
         } catch (error) {
             console.error("Chyba při přihlašování:", error);
 
             if (error.response && error.response.status === 401) {
-                alert("Špatný email nebo heslo! Zkus to znovu.");
+                showAlert.error("Chyba přihlášení", "Špatný email nebo heslo! Zkus to znovu.");
             } else { // OPRAVENÁ CHYBĚJÍCÍ ZÁVORKA ZDE
-                alert("Backend neběží nebo je chyba v síti.");
+                showAlert.error("Chyba přihlášení", "Backend neběží nebo je chyba v síti.");
             }
         }
     };

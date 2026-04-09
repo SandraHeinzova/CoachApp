@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../api/axiosInstance.js'
 import '../css/styles_team.css';
-import Swal from 'sweetalert2';
+import { showAlert } from '../components/alertService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -39,11 +39,11 @@ function Team() {
             setPlayers(updateList(players));
             setStaff(updateList(staff));
 
-            alert("Údaje byly  uloženy.");
+            showAlert.success("Úspěch!", "Údaje byly uloženy.");
             setIsEditModalOpen(false);
         } catch (error) {
             console.error("Aktualizace selhala:", error);
-            alert("Nepodařilo se uložit změny.");
+            showAlert.error("Chyba", "Nepodařilo se uložit změny.");
         }
     };
 
@@ -73,14 +73,21 @@ function Team() {
     }, []);
 
     const handleDeactivate = async (playerId, fullName) => {
-        if (window.confirm(`Opravdu chcete člena ${fullName} deaktivovat?`)) {
+        const result = await showAlert.confirm(
+            'Opravdu?',
+            `Chcete člena ${fullName} deaktivovat?`
+        );
+
+        if (result.isConfirmed) {
             try {
                 await api.patch(`/users/${playerId}/deactivate`);
                 setPlayers(prev => prev.filter(p => p.id !== playerId));
                 setStaff(prev => prev.filter(s => s.id !== playerId));
+
+                showAlert.success('Úspěch', 'Člen byl deaktivován');
             } catch (error) {
                 console.error("Deaktivace selhala: ", error);
-                alert("Nepodařilo se člena deaktivovat.")
+                showAlert.error("Chyba", "Nepodařilo se člena deaktivovat.");
             }
         }
     };
@@ -100,24 +107,7 @@ function Team() {
         return age
     };
 
-    const handleWIPClick = () => {
-        Swal.fire({
-            title: 'Pracujeme na tom!',
-            text: 'Tato funkce bude dostupná v budoucích verzích CoachApp.',
-            icon: 'info',
-            background: '#001a33', // Tato hluboká modrá krásně utlumí tu agresivitu
-            color: '#ffffff',
-            confirmButtonText: 'Jasně!',
-            // Ostatní zůstává stejné...
-            customClass: {
-                confirmButton: 'swal-custom-button',
-                title: 'swal-custom-title',
-                popup: 'swal-custom-popup' // Přidáme třídu i pro popup
-            },
-            buttonsStyling: false,
-            iconColor: '#FFD700',
-        });
-    };
+    const handleWIPClick = () => showAlert.wip('Pracujeme na tom!', 'Tato funkce bude dostupná v budoucích verzích CoachApp.' )
 
     return (
         <div className="dashboard-body">

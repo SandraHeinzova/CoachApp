@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { showAlert } from '../components/alertService';
 import api from '../api/axiosInstance.js'
 import '../css/styles_new_member.css';
 import Header from '../components/Header';
@@ -73,22 +74,21 @@ function NewMember() {
             firstName: formData.firstName.trim(),
             lastName: formData.lastName.trim(),
             cityName: isAddingNewCity ? newCityName.trim() : null,
-            // Pokud přidáváme nové město, cityId musí být null pro Spring Boot
             cityId: isAddingNewCity ? null : (formData.cityId ? parseInt(formData.cityId) : null)
         };
 
         try {
             const response = await api.post('/users/register', payload);
 
-            alert(response.data || "Člen byl úspěšně přidán");
+            showAlert.success("Úspěch", response.data || "Člen byl úspěšně přidán");
             navigate('/team');
 
         } catch (error) {
             console.error("Chyba komunikace:", error);
             if (error.response) {
-                alert("Chyba: " + (error.response.data ||  "Při ukládání došlo k chybě."));
+                showAlert.error("Chyba", error.response.data ||  "Při ukládání došlo k chybě.");
             } else {
-                alert("Backend neodpovidá " + error.message);
+                showAlert.error("Chyba spojení", "Backend neodpovidá " + error.message);
             }
         }
     };
