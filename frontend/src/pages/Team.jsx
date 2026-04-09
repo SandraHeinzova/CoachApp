@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../api/axiosInstance.js'
 import '../css/styles_team.css';
+import Swal from 'sweetalert2';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -99,6 +100,25 @@ function Team() {
         return age
     };
 
+    const handleWIPClick = () => {
+        Swal.fire({
+            title: 'Pracujeme na tom!',
+            text: 'Tato funkce bude dostupná v budoucích verzích CoachApp.',
+            icon: 'info',
+            background: '#001a33', // Tato hluboká modrá krásně utlumí tu agresivitu
+            color: '#ffffff',
+            confirmButtonText: 'Jasně!',
+            // Ostatní zůstává stejné...
+            customClass: {
+                confirmButton: 'swal-custom-button',
+                title: 'swal-custom-title',
+                popup: 'swal-custom-popup' // Přidáme třídu i pro popup
+            },
+            buttonsStyling: false,
+            iconColor: '#FFD700',
+        });
+    };
+
     return (
         <div className="dashboard-body">
             <input type="checkbox" id="menu-toggle"/>
@@ -153,7 +173,8 @@ function Team() {
                                                     <i className="fa-solid fa-user-doctor"></i> ZDRAVOTNÍ STAV
                                                 </div>
                                                 <div className="injury-status ok">Připraven</div>
-                                                <button className="btn-history-injury">Zobrazit historii zranění</button>
+                                                <button className="btn-history-injury" onClick={handleWIPClick}>
+                                                    Zobrazit historii zranění</button>
                                             </div>
                                         </div>
                                         <div className="profile-col-center">
@@ -187,9 +208,12 @@ function Team() {
                                             </div>
                                         </div>
                                         <div className="profile-col-right">
-                                            <button className="btn-profile"><i className="fa-solid fa-file-lines"></i> Charakteristika</button>
-                                            <button className="btn-profile"><i className="fa-solid fa-people-roof"></i> Zák. zástupce</button>
-                                            <button className="btn-profile"><i className="fa-solid fa-file-signature"></i> Kontakty</button>
+                                            <button className="btn-profile" onClick={handleWIPClick}>
+                                                <i className="fa-solid fa-file-lines"></i> Charakteristika</button>
+                                            <button className="btn-profile" onClick={handleWIPClick}>
+                                                <i className="fa-solid fa-people-roof"></i> Zák. zástupce</button>
+                                            <button className="btn-profile" onClick={handleWIPClick}>
+                                                <i className="fa-solid fa-file-signature"></i> Kontakty</button>
                                         </div>
                                     </div>
                                     <hr className="detail-divider" />
@@ -285,7 +309,8 @@ function Team() {
                                     </div>
                                     <hr className="detail-divider" />
                                     <div className="detail-footer-actions">
-                                        <button className="btn-graph"><i className="fa-solid fa-chart-area"></i> Graf hodnocení</button>
+                                        <button className="btn-graph" onClick={handleWIPClick}>
+                                            <i className="fa-solid fa-chart-area"></i> Graf hodnocení</button>
                                         <div className="footer-right-group">
                                             <button className="btn-edit-profile" onClick={() => openEditModal(player)}>
                                                 <i className="fa-solid fa-pen"></i> Upravit profil</button>
