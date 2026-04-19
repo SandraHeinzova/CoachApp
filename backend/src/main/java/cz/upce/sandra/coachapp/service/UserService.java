@@ -121,6 +121,12 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserDto getUserById(Long id) {
+        TeamMember member = teamMemberRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Uživatel s ID " + id + " neexistuje!"));
+        return mapToDto(member);
+    }
+
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
