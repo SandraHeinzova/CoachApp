@@ -43,7 +43,8 @@ function Team() {
             setIsEditModalOpen(false);
         } catch (error) {
             console.error("Aktualizace selhala:", error);
-            showAlert.error("Chyba", "Nepodařilo se uložit změny.");
+            const backendMessage = error.response?.data?.message;
+            showAlert.error("Chyba", backendMessage || "Nepodařilo se uložit změny.");
         }
     };
 
@@ -87,7 +88,8 @@ function Team() {
                 showAlert.success('Úspěch', 'Člen byl deaktivován');
             } catch (error) {
                 console.error("Deaktivace selhala: ", error);
-                showAlert.error("Chyba", "Nepodařilo se člena deaktivovat.");
+                const backendMessage = error.response?.data?.message;
+                showAlert.error("Chyba", backendMessage || "Nepodařilo se člena deaktivovat.");
             }
         }
     };

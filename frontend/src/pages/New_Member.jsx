@@ -85,10 +85,11 @@ function NewMember() {
 
         } catch (error) {
             console.error("Chyba komunikace:", error);
+            const backendMessage = error.response?.data?.message;
             if (error.response) {
-                showAlert.error("Chyba", error.response.data ||  "Při ukládání došlo k chybě.");
+                showAlert.error("Chyba", backendMessage || "Při ukládání došlo k chybě.");
             } else {
-                showAlert.error("Chyba spojení", "Backend neodpovidá " + error.message);
+                showAlert.error("Chyba spojení", "Backend neodpovídá " + error.message);
             }
         }
     };

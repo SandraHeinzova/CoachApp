@@ -16,9 +16,10 @@ function Sidebar() {
             try {
                 await api.post('/auth/logout');
                 showAlert.success("Odhlášeno", "Byli jste úspěšně odhlášeni.")
-            } catch (err) {
-                console.error("Server logout failed:", err);
-                showAlert.success("Odhlášeno", "Lokální relace byla ukončena.")
+            } catch (error) {
+                console.error("Server logout failed:", error);
+                const backendMessage = error.response?.data?.message;
+                showAlert.success("Odhlášeno", backendMessage || "Lokální relace byla ukončena.");
             } finally {
                 localStorage.removeItem('user');
                 navigate('/');
