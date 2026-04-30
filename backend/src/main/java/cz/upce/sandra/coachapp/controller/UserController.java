@@ -37,30 +37,6 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRegistrationDto regDto) {
-        try {
-            String generatedPassword = userService.registerUser(regDto);
-            return ResponseEntity.ok("Člen týmu byl úspěšně vytvořen. Heslo: " + generatedPassword);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(java.security.Principal principal) {
-        try {
-            String email = principal.getName();
-            System.out.println("Spring Security úspěšně ověřil uživatele: " + email);
-
-            UserDto user = userService.getUserByEmail(email);
-
-            return ResponseEntity.ok(user);
-        } catch (Exception e) {
-            System.out.println("Chyba po úspěšném ověření: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Chyba při načítání profilu");
-        }
-    }
 
     @PatchMapping("/{id}/deactivate")
     public ResponseEntity<?> deactivateUser(@PathVariable Long id) {

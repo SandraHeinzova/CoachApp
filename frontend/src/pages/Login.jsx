@@ -24,7 +24,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await api.post('/users/login', {}, {
+            const response = await api.post('/auth/login', {}, {
                 headers: {
                     'Authorization': 'Basic ' + btoa(email + ':' + password),
                 },

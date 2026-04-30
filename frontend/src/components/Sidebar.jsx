@@ -14,7 +14,7 @@ function Sidebar() {
 
         if (result.isConfirmed) {
             try {
-                await api.post('/users/logout');
+                await api.post('/auth/logout');
                 showAlert.success("Odhlášeno", "Byli jste úspěšně odhlášeni.")
             } catch (err) {
                 console.error("Server logout failed:", err);

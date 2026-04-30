@@ -10,7 +10,7 @@ function ProtectedRoute({ children }) {
         const verify = async () => {
             if (loggedUser) {
                 try {
-                    await api.get('/users/login');
+                    await api.get('/auth/login');
                 } catch (e) {
                 }
             }
