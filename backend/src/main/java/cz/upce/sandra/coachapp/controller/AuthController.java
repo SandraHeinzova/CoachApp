@@ -3,11 +3,12 @@ package cz.upce.sandra.coachapp.controller;
 import cz.upce.sandra.coachapp.dto.UserDto;
 import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
 import cz.upce.sandra.coachapp.service.UserService;
-
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,9 @@ import java.util.Map;
 
 public class AuthController {
 
+    // Vytvoření loggeru pro tuto konkrétní třídu
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+
     private final UserService userService;
 
     public AuthController(UserService userService) {
@@ -29,7 +33,9 @@ public class AuthController {
     public ResponseEntity<?> register(@Valid @RequestBody UserRegistrationDto regDto) {
         try {
             String generatedPassword = userService.registerUser(regDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Člen týmu byl úspěšně vytvořen. Heslo: " + generatedPassword);
+            log.info("Nové heslo pro uživatele {}: {}", regDto.email(), generatedPassword);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Člen týmu byl úspěšně vytvořen. Přihlašovací údaje byly zaslány na e-mail.");
         } catch (RuntimeException e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "VALIDATION_FAILED");
@@ -43,7 +49,9 @@ public class AuthController {
     public ResponseEntity<?> login(java.security.Principal principal) {
         try {
             String email = principal.getName();
-            System.out.println("Spring Security úspěšně ověřil uživatele: " + email);
+
+            // I tady můžeš staré System.out.println nahradit profi logem
+            log.info("Spring Security úspěšně ověřil uživatele: {}", email);
 
             UserDto user = userService.getUserByEmail(email);
 
@@ -52,7 +60,9 @@ public class AuthController {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "INTERNAL_SERVER_ERROR");
             errorResponse.put("message", "Chyba při načítání profilu");
-            System.out.println("Chyba po úspěšném ověření: " + e.getMessage());
+
+            log.error("Chyba po úspěšném ověření: {}", e.getMessage());
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
