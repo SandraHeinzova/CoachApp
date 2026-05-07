@@ -42,7 +42,7 @@ public class Performance {
     // --- VAZBY ---
 
     @ManyToOne
-    @MapsId("playerId") // TOHLE JE KLÍČOVÉ: Propojí to objekt Player s playerId uvnitř PerformanceId
+    @MapsId("playerId")
     @JoinColumn(name = "PLAYER_member_ID")
     private Player player;
 

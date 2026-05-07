@@ -34,7 +34,6 @@ function App() {
                 </ProtectedRoute>
             } />
 
-            {/* NOVÉ SEKCE: Zatím ve výstavbě, ale už v menu */}
             <Route path="/matches" element={
                 <ProtectedRoute>
                     <UnderConstruction title="Rozpis zápasů" />
@@ -53,7 +52,6 @@ function App() {
                 </ProtectedRoute>
             } />
 
-            {/* --- 404 NOT FOUND --- */}
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

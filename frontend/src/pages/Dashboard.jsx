@@ -56,7 +56,7 @@ function Dashboard() {
                         <h3>Tréninky</h3>
                     </Link>
 
-                    {/* KARTA ZRANĚNÍ - TEĎ UŽ DYNAMICKÁ */}
+                    {/* KARTA ZRANĚNÍ */}
                     <div className="card injury-card">
                         <div className="default-view">
                             <div className="card-header-small">

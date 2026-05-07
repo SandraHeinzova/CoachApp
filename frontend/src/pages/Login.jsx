@@ -43,13 +43,10 @@ function Login() {
             const backendMessage = error.response?.data?.message;
 
             if (error.response && error.response.status === 401) {
-                // Pokud backend pošle 401, zobrazíme naši zprávu nebo tu z backendu
                 showAlert.error("Chyba přihlášení", backendMessage || "Špatný email nebo heslo! Zkus to znovu.");
             } else if (error.response && error.response.status === 500) {
-                // Zachycení chyby serveru (např. chyba databáze)
                 showAlert.error("Chyba serveru", backendMessage || "Došlo k chybě při načítání profilu.");
             } else {
-                // Fallback, pokud backend vůbec neodpovídá (např. je vypnutý)
                 showAlert.error("Chyba spojení", "Backend neběží nebo je chyba v síti.");
             }
         }

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PerformanceRepository extends JpaRepository<Performance, PerformanceId> {
-    // Místo Long tam musí být PerformanceId
 }

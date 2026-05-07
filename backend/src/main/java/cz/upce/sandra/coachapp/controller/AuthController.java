@@ -20,7 +20,6 @@ import java.util.Map;
 
 public class AuthController {
 
-    // Vytvoření loggeru pro tuto konkrétní třídu
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     private final UserService userService;

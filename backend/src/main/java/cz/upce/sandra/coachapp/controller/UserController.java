@@ -1,7 +1,6 @@
 package cz.upce.sandra.coachapp.controller;
 
 import cz.upce.sandra.coachapp.dto.UserDto;
-import cz.upce.sandra.coachapp.dto.UserRegistrationDto;
 import cz.upce.sandra.coachapp.dto.UserUpdateDto;
 import cz.upce.sandra.coachapp.service.UserService;
 import jakarta.validation.Valid;

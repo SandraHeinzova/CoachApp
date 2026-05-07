@@ -24,7 +24,7 @@ public class Player extends TeamMember {
     private Integer height;
 
     @Column(name = "foot", nullable = false)
-    private String foot; // V SQL máš CHECK na 'Left', 'Right', 'Both'
+    private String foot;
 
     @Column(name = "is_healthy", nullable = false)
     private String isHealthy = "Yes";
@@ -35,7 +35,6 @@ public class Player extends TeamMember {
     @JoinColumn(name = "position_ID", nullable = false)
     private Position position;
 
-    // Pro vazební tabulku PLAYERS-PARENTS
     @ManyToMany
     @JoinTable(
             name = "PLAYERS_PARENTS",

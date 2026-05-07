@@ -19,10 +19,10 @@ public class Activity {
     private Long id;
 
     @Column(name = "date_time", nullable = false)
-    private java.time.LocalDateTime dateTime; // Použijeme LocalDateTime, protože obsahuje i čas
+    private java.time.LocalDateTime dateTime;
 
     @Column(name = "type", nullable = false)
-    private String type; // 'Match' nebo 'Training'
+    private String type;
 
     @ManyToOne
     @JoinColumn(name = "city_ID", nullable = false)
