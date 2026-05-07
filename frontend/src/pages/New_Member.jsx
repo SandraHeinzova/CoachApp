@@ -78,7 +78,7 @@ function NewMember() {
         };
 
         try {
-            const response = await api.post('/users/register', payload);
+            const response = await api.post('/auth/register', payload);
 
             showAlert.success("Úspěch", response.data || "Člen byl úspěšně přidán");
             navigate('/team');
