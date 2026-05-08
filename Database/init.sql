@@ -6,7 +6,6 @@
 -- Přepneme se do správné databáze (PDB)
 ALTER SESSION SET CONTAINER = FREEPDB1;
 
--- Tímto zajistíme, že následující příkazy poběží pod uživatelem SANDRA
 ALTER SESSION SET CURRENT_SCHEMA = SANDRA;
 
 CREATE TABLE SANDRA.ACTIVITIES 
@@ -454,5 +453,31 @@ INSERT INTO SANDRA.TRAINING_GROUNDS (NAME) VALUES ('Tráva č. 3');
 INSERT INTO SANDRA.TRAINING_GROUNDS (NAME) VALUES ('UMT');
 INSERT INTO SANDRA.TRAINING_GROUNDS (NAME) VALUES ('Za Vodojemem');
 
+-- Vytvoření systémového administrátora - Admin = Sandra
+INSERT INTO SANDRA.TEAM_MEMBERS (
+    USERNAME, 
+    PASSWORD_HASH, 
+    NAME, 
+    LAST_NAME, 
+    DATE_OF_BIRTH, 
+    PHONE_NUMBER, 
+    EMAIL, 
+    IS_ACTIVE, 
+    ROLE_ID, 
+    CITY_ID
+) 
+VALUES (
+    'sandra.heinzova', 
+    '$2a$10$MfmzZ1J86c46fJYGjYY7..ejYGxTZI39UYoSApexvIO4CU9EZ.dLW', 
+    'Sandra', 
+    'Heinzová', 
+    TO_DATE('1993-08-11', 'YYYY-MM-DD'), 
+    '+420731261194', 
+    'heinzova.sandra@gmail.com', 
+    'Yes', 
+    (SELECT role_id FROM SANDRA.ROLES WHERE name = 'Admin'), 
+    (SELECT city_ID FROM SANDRA.CITIES WHERE name = 'Pardubice')
+);
 
 COMMIT;
+
