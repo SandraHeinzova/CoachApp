@@ -4,7 +4,7 @@ CoachApp je webová platforma navržená pro efektivní správu a digitalizaci s
 
 ## 🚀 Živé demo a Landing Page
 Aktuální stav vývoje a vizi produktu můžete sledovat zde:
-**[CoachApp Landing Page](https://coachapp-landing.vercel.app)** 
+**[CoachApp Landing Page](https://coachapp-landing-phi.vercel.app/)** 
 
 ## ✨ Klíčové vlastnosti (Vize produktu)
 - **Organizace bez papírů:** Digitální správa soupisek a tréninkových plánů.
